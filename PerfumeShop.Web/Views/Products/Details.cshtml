@@ -1,0 +1,110 @@
+@model PerfumeShop.Core.Entities.Product
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/template/ogani-master/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>@Model.Name</h2>
+                    <div class="breadcrumb__option">
+                        <a href="/">Home</a>
+                        <a href="/Products">Perfumes</a>
+                        <span>@Model.Name</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<!-- Product Details Section Begin -->
+<section class="product-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="product__details__pic">
+                    <div class="product__details__pic__item">
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <img class="product__details__pic__item--large" src="@Model.ImageUrl" alt="@Model.Name">
+                        }
+                        else
+                        {
+                            <img class="product__details__pic__item--large" src="/images/products/default.svg" alt="@Model.Name">
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="product__details__text">
+                    <h3>@Model.Name</h3>
+                    <div class="product__details__rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-o"></i>
+                    </div>
+                    <div class="product__details__price">@Model.Price.ToString("C")</div>
+                    <p>@Model.Description</p>
+                    
+                    <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                        <input type="hidden" name="productId" value="@Model.Id" />
+                        <div class="product__details__quantity">
+                            <div class="quantity">
+                                <div class="pro-qty">
+                                    <input type="number" id="quantity" name="quantity" value="1" min="1" max="@Model.Stock">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="primary-btn @(Model.Stock <= 0 ? "disabled" : "")" @(Model.Stock <= 0 ? "disabled" : "")>
+                            IN DEN WARENKORB
+                        </button>
+                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                    </form>
+                    
+                    <ul>
+                        <li><b>Verfügbarkeit</b> 
+                            @if (Model.Stock > 0)
+                            {
+                                <span>Auf Lager (@Model.Stock)</span>
+                            }
+                            else
+                            {
+                                <span class="text-danger">Nicht auf Lager</span>
+                            }
+                        </li>
+                        <li><b>Marke</b> <span>@Model.Brand?.Name</span></li>
+                        <li><b>Kategorie</b> <span>@Model.Category?.Name</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Product Details Section End -->
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Setze Hintergrundbild für Breadcrumb
+            $('.set-bg').each(function() {
+                var bg = $(this).data('setbg');
+                $(this).css('background-image', 'url(' + bg + ')');
+            });
+        });
+    </script>
+} 

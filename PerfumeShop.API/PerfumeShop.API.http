@@ -1,0 +1,6 @@
+@PerfumeShop.API_HostAddress = http://localhost:5217
+
+GET {{PerfumeShop.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

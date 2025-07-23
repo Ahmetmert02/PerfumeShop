@@ -1,0 +1,216 @@
+﻿@model IEnumerable<PerfumeShop.Core.Entities.Product>
+@{
+    ViewData["Title"] = "Home";
+    // Define category IDs for men, women and unisex
+    var menCategoryId = 1; // Assumption: Category ID for men is 1
+    var womenCategoryId = 2; // Assumption: Category ID for women is 2
+    var unisexCategoryId = 3; // Assumption: Category ID for unisex is 3
+    
+    // Define Brand IDs for brands
+    var tomFordId = 1; // Assumption: Brand ID for Tom Ford is 1
+    var creedId = 2; // Assumption: Brand ID for Creed is 2
+    var xerjoffId = 3; // Assumption: Brand ID for Xerjoff is 3
+    var louisVuittonId = 4; // Assumption: Brand ID for Louis Vuitton is 4
+    var lattafaId = 5; // Assumption: Brand ID for Lattafa is 5
+}
+
+<!-- New Split-Screen Slideshow Begin -->
+<div class="split-screen-slideshow">
+    <div class="relative overflow-hidden snap-x">
+        <div class="w-full md:h-[calc(100vh-96px)] flex relative overflow-hidden">
+            <div class="w-full h-full flex flex-col md:flex-row relative img-div bg-white">
+                <a href="@Url.Action("Index", "Products", new { categoryId = menCategoryId })" class="section-link w-full md:w-[50vw] md:absolute md:left-0 md:top-0 md:bottom-0 md:hover:w-[55vw] overflow-hidden left-image cursor-pointer md:pointer-events-auto">
+                    <div class="w-full h-full">
+                        <div class="w-full md:w-[55vw] h-full md:absolute flex">
+                            <div class="relative md:absolute flex w-full h-full md:top-1/2 md:left-[45%] md:-translate-x-1/2 md:-translate-y-1/2">
+                                <img src="~/img/tom-ford-11126-ead6ac.webp" loading="eager" class="z-10 w-full object-cover object-top align-top bg-top hidden md:block" alt="Men's Perfume" width="1250" height="1184" decoding="async">
+                                <img src="~/img/tom-ford-11126-ead6ac.webp" loading="eager" class="w-full object-cover object-top align-top bg-top md:hidden" alt="Men's Perfume Mobile" width="1500" height="1164" decoding="async">
+                                <div class="hidden md:block absolute w-full h-[85px] bottom-0 bg-gradient-to-t from-black/75 to-transparent z-20"></div>
+                                <div class="bottom-0 p-4 md:p-6 uppercase text-white text-xl md:text-2xl -tracking-[0.84px] leading-6 font-[350] z-30 left-text absolute md:left-[5%] w-[200px] md:w-full">Men's Fragrances</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="@Url.Action("Index", "Products", new { categoryId = womenCategoryId })" class="section-link w-full md:absolute md:right-0 md:top-0 md:bottom-0 md:hover:w-[55vw] overflow-hidden right-image cursor-pointer md:pointer-events-auto group md:w-[50vw]">
+                    <div class="w-full h-full">
+                        <div class="w-full md:w-[55vw] h-full md:absolute flex right-0">
+                            <div class="md:absolute flex w-full h-full md:top-0 md:right-0 md:left-[55%] md:-translate-x-1/2">
+                                <img src="~/img/tom-ford-f-w-2025-by-haider-ackermann-1000x1500-v0-1zkd98mesydf1.webp" loading="eager" class="z-10 w-full object-cover object-top align-top bg-top hidden md:block" alt="Women's Perfume" width="1250" height="1184" decoding="async">
+                                <img src="~/img/tom-ford-f-w-2025-by-haider-ackermann-1000x1500-v0-1zkd98mesydf1.webp" loading="eager" class="w-full object-cover object-top align-top bg-top md:hidden" alt="Women's Perfume Mobile" width="1500" height="1164" decoding="async">
+                                <div class="hidden md:block absolute w-full h-[85px] bottom-0 bg-gradient-to-t from-black/75 to-transparent z-30"></div>
+                                <img src="~/images/products/0d21542a-d2af-4930-b67e-5e9c804c5d31_tom-ford-tobacco-vanille-edp-100-ml-unisex-parfum-668721da1f8d4.jpg" loading="eager" class="w-1/6 h-auto z-20 absolute bottom-0 right-[5%] hidden md:block" alt="Perfume Bottle" width="204" height="382" decoding="async">
+                                <div class="bottom-0 p-4 md:p-6 uppercase text-white text-xl md:text-2xl -tracking-[0.84px] leading-6 font-[350] z-40 right-text absolute left-0 w-[200px] md:w-full md:left-[2vw]" role="heading">Women's Fragrances</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Split-Screen Slideshow End -->
+
+<!-- Featured Section Begin -->
+<section class="featured-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Exklusive Düfte</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var product in Model.Take(8))
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="product-item">
+                        <a href="/Products/Details/@product.Id">
+                            <img src="@product.ImageUrl" alt="@product.Name">
+                        </a>
+                        <h5>@product.Name</h5>
+                        <p>@product.Brand?.Name</p>
+                        <div class="product-price">@product.Price.ToString("C")</div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- Featured Section End -->
+
+<!-- Categories Section Begin -->
+<section class="categories-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Entdecken Sie unsere Kollektionen</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="category-item" style="position: relative; height: 400px; overflow: hidden; margin-bottom: 30px;">
+                    <img src="~/img/tom-ford-11126-ead6ac.webp" alt="Herren" style="width: 100%; height: 100%; object-fit: fill;">
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;">
+                        <h3 style="color: #fff; font-size: 28px; margin-bottom: 15px; text-transform: uppercase; font-weight: 600;">Herren</h3>
+                        <p style="color: #fff; margin-bottom: 20px;">Markante und charaktervolle Düfte für Ihn</p>
+                        <a href="@Url.Action("Index", "Products", new { categoryId = menCategoryId })" class="primary-btn">ENTDECKEN</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="category-item" style="position: relative; height: 400px; overflow: hidden; margin-bottom: 30px;">
+                    <img src="~/img/tom-ford-f-w-2025-by-haider-ackermann-1000x1500-v0-1zkd98mesydf1.webp" alt="Damen" style="width: 100%; height: 100%; object-fit: fill;">
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;">
+                        <h3 style="color: #fff; font-size: 28px; margin-bottom: 15px; text-transform: uppercase; font-weight: 600;">Damen</h3>
+                        <p style="color: #fff; margin-bottom: 20px;">Elegante und verführerische Düfte für Sie</p>
+                        <a href="@Url.Action("Index", "Products", new { categoryId = womenCategoryId })" class="primary-btn">ENTDECKEN</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="category-item" style="position: relative; height: 400px; overflow: hidden; margin-bottom: 30px;">
+                    <img src="~/img/unisex2.jpg" alt="Unisex" style="width: 100%; height: 100%; object-fit: fill;">
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;">
+                        <h3 style="color: #fff; font-size: 28px; margin-bottom: 15px; text-transform: uppercase; font-weight: 600;">Unisex</h3>
+                        <p style="color: #fff; margin-bottom: 20px;">Zeitlose Düfte für jeden Geschmack</p>
+                        <a href="@Url.Action("Index", "Products", new { categoryId = unisexCategoryId })" class="primary-btn">ENTDECKEN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Categories Section End -->
+
+<!-- Brands Section Begin -->
+<section class="brands-section" style="padding: 60px 0; background-color: #fff;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Unsere Marken</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="brand-logo" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                    <div class="brand-item text-center" style="width: 20%; padding: 15px;">
+                        <a href="@Url.Action("Index", "Products", new { brandId = tomFordId })" style="display: block;">
+                            <div style="height: 150px; margin-bottom: 15px; overflow: hidden; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                <img src="~/images/products/0d21542a-d2af-4930-b67e-5e9c804c5d31_tom-ford-tobacco-vanille-edp-100-ml-unisex-parfum-668721da1f8d4.jpg" alt="Tom Ford" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <h4 style="color: #800020; font-size: 18px; font-weight: 600; margin-top: 10px; text-transform: uppercase;">Tom Ford</h4>
+                        </a>
+                    </div>
+                    <div class="brand-item text-center" style="width: 20%; padding: 15px;">
+                        <a href="@Url.Action("Index", "Products", new { brandId = creedId })" style="display: block;">
+                            <div style="height: 150px; margin-bottom: 15px; overflow: hidden; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                <img src="~/images/products/d17dfaec-c148-4c49-8154-91943b57718d_creed-millesime-aventus-for-her-edp-75-ml-kadin-parfum-669d4682cb327.jpg" alt="Creed" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <h4 style="color: #800020; font-size: 18px; font-weight: 600; margin-top: 10px; text-transform: uppercase;">Creed</h4>
+                        </a>
+                    </div>
+                    <div class="brand-item text-center" style="width: 20%; padding: 15px;">
+                        <a href="@Url.Action("Index", "Products", new { brandId = xerjoffId })" style="display: block;">
+                            <div style="height: 150px; margin-bottom: 15px; overflow: hidden; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                <img src="~/images/products/31a1911f-2353-4067-9030-482b082037b6_Xerjoff_Alexandria_II.webp" alt="Xerjoff" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <h4 style="color: #800020; font-size: 18px; font-weight: 600; margin-top: 10px; text-transform: uppercase;">Xerjoff</h4>
+                        </a>
+                    </div>
+                    <div class="brand-item text-center" style="width: 20%; padding: 15px;">
+                        <a href="@Url.Action("Index", "Products", new { brandId = louisVuittonId })" style="display: block;">
+                            <div style="height: 150px; margin-bottom: 15px; overflow: hidden; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                <img src="~/images/products/d764f65b-a939-4995-8204-292c185d7ab7_louis-vuitton-attrape-reves---LP0083_PM1_Interior view.webp" alt="Louis Vuitton" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <h4 style="color: #800020; font-size: 18px; font-weight: 600; margin-top: 10px; text-transform: uppercase;">Louis Vuitton</h4>
+                        </a>
+                    </div>
+                    <div class="brand-item text-center" style="width: 20%; padding: 15px;">
+                        <a href="@Url.Action("Index", "Products", new { brandId = lattafaId })" style="display: block;">
+                            <div style="height: 150px; margin-bottom: 15px; overflow: hidden; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                <img src="~/images/products/0998ffa5-2d04-40a0-9310-d11ddd1d99f3_Ana-Abiyedh-Rouge-by-Lattafa-Perfume-Unisex-72-Essences.webp" alt="Lattafa" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <h4 style="color: #800020; font-size: 18px; font-weight: 600; margin-top: 10px; text-transform: uppercase;">Lattafa</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Brands Section End -->
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Split-Screen Slideshow Interaktionen
+            $('.section-link').on('mouseenter', function() {
+                if (window.innerWidth >= 768) { // Nur auf Desktop
+                    $(this).css('width', '55vw');
+                    $(this).siblings('.section-link').css('width', '45vw');
+                }
+            });
+            
+            $('.section-link').on('mouseleave', function() {
+                if (window.innerWidth >= 768) { // Nur auf Desktop
+                    $('.section-link').css('width', '50vw');
+                }
+            });
+            
+            // Set background images für alte Slider-Elemente
+            $('.set-bg').each(function() {
+                var bg = $(this).data('setbg');
+                $(this).css('background-image', 'url(' + bg + ')');
+                $(this).css('background-size', 'fill');
+                $(this).css('background-position', 'center');
+            });
+        });
+    </script>
+}
+
+

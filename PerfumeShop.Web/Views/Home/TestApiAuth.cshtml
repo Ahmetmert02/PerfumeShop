@@ -1,0 +1,49 @@
+@{
+    ViewData["Title"] = "Test API Auth";
+}
+
+<h1>Test API Auth</h1>
+
+<div class="card mb-3">
+    <div class="card-header">
+        <h4>Status Code</h4>
+    </div>
+    <div class="card-body">
+        <p>@ViewBag.StatusCode</p>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header">
+        <h4>Headers</h4>
+    </div>
+    <div class="card-body">
+        <pre>@ViewBag.Headers</pre>
+    </div>
+</div>
+
+@if (ViewBag.Content != null)
+{
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4>Content</h4>
+        </div>
+        <div class="card-body">
+            <pre style="word-wrap: break-word; white-space: pre-wrap;">@ViewBag.Content</pre>
+        </div>
+    </div>
+}
+
+@if (ViewBag.Error != null)
+{
+    <div class="card mb-3 border-danger">
+        <div class="card-header bg-danger text-white">
+            <h4>Error</h4>
+        </div>
+        <div class="card-body">
+            <pre style="word-wrap: break-word; white-space: pre-wrap;">@ViewBag.Error</pre>
+        </div>
+    </div>
+}
+
+<a asp-action="Index" class="btn btn-primary">Zurück zur Startseite</a> 

@@ -1,0 +1,483 @@
+@model PerfumeShop.Web.Services.ShoppingCartResponse
+@using PerfumeShop.Web.Models
+@using Newtonsoft.Json
+@using PerfumeShop.Core.Entities
+
+@{
+    ViewData["Title"] = "Checkout";
+    
+    // Benutzer-ID aus der Session abrufen
+    var userSessionJson = Context.Session.GetString("UserSession");
+    var userSession = !string.IsNullOrEmpty(userSessionJson) 
+        ? JsonConvert.DeserializeObject<UserSessionModel>(userSessionJson) 
+        : null;
+}
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" style="background-color: #000000;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2 style="color: #ffffff;">Checkout</h2>
+                    <div class="breadcrumb__option">
+                        <a href="/" style="color: #6F4E37;">Home</a>
+                        <a href="/Cart" style="color: #6F4E37;">Shopping Cart</a>
+                        <span style="color: #ffffff;">Checkout</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+        
+        <div class="checkout__form">
+            <h4>Rechnungsdetails</h4>
+            <form asp-action="PlaceOrder" method="post">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Vorname<span>*</span></p>
+                                    <input type="text" name="firstName" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Nachname<span>*</span></p>
+                                    <input type="text" name="lastName" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Land<span>*</span></p>
+                            <input type="text" name="country" required>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Adresse<span>*</span></p>
+                            <input type="text" id="address" name="address" placeholder="Straße und Hausnummer" class="checkout__input__add" required>
+                            <input type="text" name="addressDetails" placeholder="Wohnung, Stockwerk, etc. (optional)">
+                        </div>
+                        <div class="checkout__input">
+                            <p>Stadt<span>*</span></p>
+                            <input type="text" name="city" required>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Bundesland<span>*</span></p>
+                            <input type="text" name="state" required>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Postleitzahl<span>*</span></p>
+                            <input type="text" name="zipCode" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Telefon<span>*</span></p>
+                                    <input type="text" name="phone" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Email<span>*</span></p>
+                                    <input type="email" name="email" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Bestellhinweise<span></span></p>
+                            <input type="text" name="orderNotes" placeholder="Hinweise zu Ihrer Bestellung, z.B. besondere Lieferanweisungen.">
+                        </div>
+                        <!-- Verstecktes Feld für die vollständige Adresse -->
+                        <input type="hidden" id="shippingAddress" name="shippingAddress" value="">
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="checkout__order">
+                            <h4>Ihre Bestellung</h4>
+                            <div class="checkout__order__products">Products <span>Total</span></div>
+                            <ul>
+                                @if (Model != null && Model.CartItems != null && Model.CartItems.Any())
+                                {
+                                    foreach (var item in Model.CartItems)
+                                    {
+                                        <li>@item.ProductName <span>@item.TotalPrice.ToString("C")</span></li>
+                                    }
+                                }
+                                else
+                                {
+                                    <li>No products in the shopping cart</li>
+                                }
+                            </ul>
+                            <div class="checkout__order__subtotal">Subtotal <span>@Model.TotalPrice.ToString("C")</span></div>
+                            <div class="checkout__order__total">Total <span>@Model.TotalPrice.ToString("C")</span></div>
+                            
+                            <h5>Payment Method</h5>
+                            <div class="checkout__input__checkbox">
+                                <label for="payment-cc">
+                                    Credit Card
+                                    <input type="radio" id="payment-cc" name="paymentMethod" value="Kreditkarte" checked>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            
+                            <div id="credit-card-details">
+                                <div class="checkout__input">
+                                    <p>Card Number<span>*</span></p>
+                                    <input type="text" name="cardNumber" placeholder="1234 5678 9012 3456">
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="checkout__input">
+                                            <p>Expiry Date<span>*</span></p>
+                                            <input type="text" name="expiryDate" placeholder="MM/YY">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="checkout__input">
+                                            <p>CVC<span>*</span></p>
+                                            <input type="text" name="cvc" placeholder="123">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="checkout__input">
+                                    <p>Cardholder Name<span>*</span></p>
+                                    <input type="text" name="cardholderName">
+                                </div>
+                            </div>
+                            
+                            <div class="checkout__input__checkbox">
+                                <label for="payment-paypal">
+                                    PayPal
+                                    <input type="radio" id="payment-paypal" name="paymentMethod" value="PayPal">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="checkout__input__checkbox">
+                                <label for="payment-bank">
+                                    Bank Transfer
+                                    <input type="radio" id="payment-bank" name="paymentMethod" value="Banküberweisung">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            
+                            <p>By submitting the order, you agree to our General Terms and Conditions and Privacy Policy.</p>
+                            <button type="submit" class="site-btn">PLACE ORDER</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Checkout Section End -->
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initial versteckte Felder aktualisieren
+            composeAddress();
+            
+            $('input[name="paymentMethod"]').change(function() {
+                if ($(this).val() === "Kreditkarte") {
+                    $('#credit-card-details').show();
+                } else {
+                    $('#credit-card-details').hide();
+                }
+            });
+            
+            // Funktion zum Zusammensetzen der Adresse
+            function composeAddress() {
+                var firstName = $('input[name="firstName"]').val() || '';
+                var lastName = $('input[name="lastName"]').val() || '';
+                var address = $('input[name="address"]').val() || '';
+                var addressDetails = $('input[name="addressDetails"]').val() || '';
+                var city = $('input[name="city"]').val() || '';
+                var state = $('input[name="state"]').val() || '';
+                var zipCode = $('input[name="zipCode"]').val() || '';
+                var country = $('input[name="country"]').val() || '';
+                
+                var fullAddress = firstName + ' ' + lastName + ', ' + 
+                                  address + (addressDetails ? ', ' + addressDetails : '') + ', ' + 
+                                  zipCode + ' ' + city + ', ' + 
+                                  state + ', ' + country;
+                
+                $('#shippingAddress').val(fullAddress);
+                console.log('Adresse aktualisiert: ' + fullAddress);
+            }
+            
+            // Bei Änderung der Adressfelder die Adresse aktualisieren
+            $('input[name="firstName"], input[name="lastName"], input[name="address"], input[name="addressDetails"], input[name="city"], input[name="state"], input[name="zipCode"], input[name="country"]').on('input', function() {
+                composeAddress();
+            });
+            
+            // Bei Formular-Submit die Adresse aktualisieren und Validierung durchführen
+            $('form').submit(function(e) {
+                composeAddress();
+                
+                // Setze Standardwerte, wenn Felder leer sind
+                if ($('#shippingAddress').val() === '') {
+                    $('#shippingAddress').val('Keine Adresse angegeben');
+                }
+                
+                var paymentMethod = $('input[name="paymentMethod"]:checked').val();
+                if (!paymentMethod) {
+                    $('input[name="paymentMethod"][value="Kreditkarte"]').prop('checked', true);
+                    paymentMethod = "Kreditkarte";
+                }
+                
+                console.log('Formular wird gesendet mit Adresse: ' + $('#shippingAddress').val());
+                console.log('Zahlungsmethode: ' + paymentMethod);
+                
+                // Füge Debug-Informationen hinzu
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'debug',
+                    value: 'true'
+                }).appendTo('form');
+                
+                return true;
+            });
+        });
+    </script>
+}
+
+<style>
+    .primary-btn {
+        background: #6F4E37; /* Braun */
+        color: #ffffff;
+        border: none;
+        padding: 12px 30px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        display: inline-block;
+        transition: all, 0.3s;
+    }
+
+    .primary-btn:hover {
+        background: #5a3d29;
+        color: #ffffff;
+    }
+
+    .site-btn {
+        background: #6F4E37; /* Braun */
+        color: #ffffff;
+        border: none;
+        padding: 12px 30px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        display: inline-block;
+        transition: all, 0.3s;
+    }
+
+    .site-btn:hover {
+        background: #5a3d29;
+        color: #ffffff;
+    }
+
+    .breadcrumb-section {
+        background-color: #000000;
+        padding: 45px 0;
+    }
+
+    .breadcrumb__text h2 {
+        color: #ffffff;
+        font-size: 46px;
+        font-weight: 700;
+    }
+
+    .breadcrumb__option a {
+        color: #6F4E37;
+        font-size: 16px;
+        display: inline-block;
+        margin-right: 20px;
+        position: relative;
+    }
+
+    .breadcrumb__option a:after {
+        position: absolute;
+        right: -12px;
+        top: 0;
+        content: "|";
+        color: #ffffff;
+    }
+
+    .breadcrumb__option span {
+        color: #ffffff; /* Weiß statt Rot */
+        font-size: 16px;
+    }
+
+    .checkout__form h4 {
+        color: #333333;
+        font-weight: 700;
+        border-bottom: 1px solid #e1e1e1;
+        padding-bottom: 20px;
+        margin-bottom: 25px;
+    }
+
+    .checkout__input {
+        margin-bottom: 24px;
+    }
+
+    .checkout__input p {
+        color: #333333;
+        margin-bottom: 10px;
+    }
+
+    .checkout__input p span {
+        color: #6F4E37; /* Braun statt Rot */
+    }
+
+    .checkout__input input {
+        width: 100%;
+        height: 46px;
+        border: 1px solid #ebebeb;
+        padding-left: 20px;
+        font-size: 16px;
+        color: #333333;
+        border-radius: 4px;
+    }
+
+    .checkout__input__checkbox label {
+        position: relative;
+        font-size: 16px;
+        color: #333333;
+        padding-left: 40px;
+        cursor: pointer;
+        display: block;
+        margin-bottom: 16px;
+    }
+
+    .checkout__input__checkbox label input {
+        position: absolute;
+        visibility: hidden;
+    }
+
+    .checkout__input__checkbox label .checkmark {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 20px;
+        width: 20px;
+        background: #e1e1e1;
+        border-radius: 4px;
+    }
+
+    .checkout__input__checkbox label .checkmark:after {
+        position: absolute;
+        left: 6px;
+        top: 3px;
+        width: 6px;
+        height: 10px;
+        border: solid #6F4E37; /* Braun statt Rot */
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+        content: "";
+        display: none;
+    }
+
+    .checkout__input__checkbox label input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    .checkout__order {
+        background: #000000; /* Schwarz statt hellgrau */
+        padding: 30px;
+        padding-top: 20px;
+        border-radius: 5px;
+        color: #ffffff; /* Weiße Schrift für besseren Kontrast */
+    }
+
+    .checkout__order h4 {
+        color: #ffffff; /* Weiß statt schwarz */
+        font-weight: 700;
+        border-bottom: 1px solid #333333; /* Dunklere Trennlinie für besseren Kontrast */
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    .checkout__order .checkout__order__products {
+        font-size: 18px;
+        color: #ffffff; /* Weiß statt schwarz */
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .checkout__order .checkout__order__products span {
+        float: right;
+    }
+
+    .checkout__order ul {
+        margin-bottom: 12px;
+    }
+
+    .checkout__order ul li {
+        font-size: 16px;
+        color: #ffffff; /* Weiß statt schwarz */
+        line-height: 40px;
+        list-style: none;
+        overflow: hidden;
+        display: block;
+    }
+
+    .checkout__order ul li span {
+        color: #ffffff; /* Weiß statt schwarz */
+        float: right;
+    }
+
+    .checkout__order .checkout__order__subtotal {
+        font-size: 18px;
+        color: #ffffff; /* Weiß statt schwarz */
+        font-weight: 700;
+        border-top: 1px solid #333333; /* Dunklere Trennlinie */
+        border-bottom: 1px solid #333333; /* Dunklere Trennlinie */
+        padding-top: 15px;
+        padding-bottom: 15px;
+        margin-top: 15px;
+    }
+
+    .checkout__order .checkout__order__subtotal span {
+        float: right;
+    }
+
+    .checkout__order .checkout__order__total {
+        font-size: 18px;
+        color: #ffffff; /* Weiß statt schwarz */
+        font-weight: 700;
+        border-bottom: 1px solid #333333; /* Dunklere Trennlinie */
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+    }
+
+    .checkout__order .checkout__order__total span {
+        float: right;
+        color: #6F4E37; /* Braun statt Rot */
+    }
+
+    .checkout__order button {
+        font-size: 18px;
+        letter-spacing: 2px;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    h5 {
+        color: #ffffff; /* Weiß statt schwarz */
+        font-weight: 700;
+        margin: 20px 0;
+    }
+</style> 

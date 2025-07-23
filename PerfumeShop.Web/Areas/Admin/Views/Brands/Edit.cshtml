@@ -1,0 +1,56 @@
+@model PerfumeShop.Core.Entities.Brand
+
+@{
+    ViewData["Title"] = "Marke bearbeiten";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Marke bearbeiten</h1>
+    <p class="mb-4">Bearbeiten Sie die folgenden Felder, um die Marke zu aktualisieren.</p>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Marken-Details</h6>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Name</label>
+                    <input asp-for="Name" class="form-control" required />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">Beschreibung</label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="LogoUrl" class="control-label">Logo URL</label>
+                    <input asp-for="LogoUrl" class="form-control" />
+                    <span asp-validation-for="LogoUrl" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsActive" /> Aktiv
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="submit" value="Speichern" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary">Zurück zur Liste</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

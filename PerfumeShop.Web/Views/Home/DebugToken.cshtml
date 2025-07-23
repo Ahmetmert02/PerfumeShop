@@ -1,0 +1,80 @@
+@model PerfumeShop.Web.Models.DebugTokenViewModel
+
+@{
+    ViewData["Title"] = "Debug Token";
+}
+
+<h1>Debug Token</h1>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h5>Token aus Cookie</h5>
+    </div>
+    <div class="card-body">
+        @if (!string.IsNullOrEmpty(Model.CookieToken))
+        {
+            <div class="alert alert-info">
+                <strong>Token:</strong>
+                <div style="word-break: break-all;">@Model.CookieToken</div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning">Kein Token im Cookie gefunden</div>
+        }
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h5>Token aus Session</h5>
+    </div>
+    <div class="card-body">
+        @if (!string.IsNullOrEmpty(Model.SessionToken))
+        {
+            <div class="alert alert-info">
+                <strong>Token:</strong>
+                <div style="word-break: break-all;">@Model.SessionToken</div>
+            </div>
+            
+            @if (!string.IsNullOrEmpty(Model.UserInfo))
+            {
+                <div class="alert alert-success mt-3">
+                    <strong>Benutzerinfo:</strong>
+                    <div>@Model.UserInfo</div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-warning">Kein Token in der Session gefunden</div>
+        }
+        
+        @if (!string.IsNullOrEmpty(Model.Error))
+        {
+            <div class="alert alert-danger mt-3">
+                <strong>Fehler:</strong>
+                <div>@Model.Error</div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h5>JWT Token Dekodieren</h5>
+    </div>
+    <div class="card-body">
+        <p>Um den JWT-Token zu dekodieren und zu überprüfen, können Sie <a href="https://jwt.io" target="_blank">jwt.io</a> verwenden.</p>
+        <p>Kopieren Sie einfach den Token in das Eingabefeld auf der Website, um den Inhalt anzuzeigen.</p>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h5>API-Verbindung testen</h5>
+    </div>
+    <div class="card-body">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Zurück zur Startseite</a>
+    </div>
+</div> 

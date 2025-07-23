@@ -1,0 +1,52 @@
+@model PerfumeShop.Core.Entities.Brand
+
+@{
+    ViewData["Title"] = "Marke löschen";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Marke löschen</h1>
+    <p class="mb-4">Sind Sie sicher, dass Sie diese Marke löschen möchten?</p>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Marken-Details</h6>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-danger">
+                <h5><i class="fas fa-exclamation-triangle"></i> Warnung</h5>
+                <p>Das Löschen dieser Marke kann nicht rückgängig gemacht werden.</p>
+            </div>
+
+            <dl class="row">
+                <dt class="col-sm-3">ID</dt>
+                <dd class="col-sm-9">@Model.Id</dd>
+
+                <dt class="col-sm-3">Name</dt>
+                <dd class="col-sm-9">@Model.Name</dd>
+
+                <dt class="col-sm-3">Beschreibung</dt>
+                <dd class="col-sm-9">@Model.Description</dd>
+
+                <dt class="col-sm-3">Status</dt>
+                <dd class="col-sm-9">
+                    @if (Model.IsActive)
+                    {
+                        <span class="badge badge-success">Aktiv</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-danger">Inaktiv</span>
+                    }
+                </dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger">Löschen</button>
+                <a asp-action="Index" class="btn btn-secondary">Abbrechen</a>
+            </form>
+        </div>
+    </div>
+</div> 

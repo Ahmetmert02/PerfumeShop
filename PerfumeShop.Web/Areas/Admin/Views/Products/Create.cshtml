@@ -1,0 +1,139 @@
+@model PerfumeShop.Core.Entities.Product
+
+@{
+    ViewData["Title"] = "Produkt erstellen";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Create" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                    <div class="form-group mb-3">
+                        <label asp-for="Name" class="control-label">Name</label>
+                        <input asp-for="Name" class="form-control" required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group mb-3">
+                        <label asp-for="Description" class="control-label">Beschreibung</label>
+                        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Price" class="control-label">Preis</label>
+                                <input asp-for="Price" class="form-control" type="number" step="0.01" required />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Stock" class="control-label">Bestand</label>
+                                <input asp-for="Stock" class="form-control" type="number" required />
+                                <span asp-validation-for="Stock" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="mb-0">Produktbild</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="text-center mb-3">
+                                        <label class="form-label">Bildvorschau</label>
+                                        <div class="border rounded p-2 d-flex justify-content-center align-items-center" style="height: 200px;" id="imagePreviewContainer">
+                                            <img src="~/images/products/default.svg" alt="Bildvorschau" class="img-fluid" style="max-height: 180px;" id="imagePreview" />
+                                        </div>
+                                        <small class="form-text text-muted">Vorschau des ausgewählten Bildes</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Bild hochladen</label>
+                                        <input type="file" name="ImageFile" class="form-control" accept="image/*" id="imageInput" />
+                                        <small class="form-text text-muted">Erlaubte Dateitypen: JPG, PNG, GIF (max. 5 MB)</small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label asp-for="ImageUrl" class="form-label">Bild URL (optional)</label>
+                                        <input asp-for="ImageUrl" class="form-control" id="imageUrlInput" />
+                                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                                        <small class="form-text text-muted">Nur ausfüllen, wenn kein Bild hochgeladen wird</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="CategoryId" class="control-label">Kategorie</label>
+                                <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId" required>
+                                    <option value="">-- Kategorie auswählen --</option>
+                                </select>
+                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="BrandId" class="control-label">Marke</label>
+                                <select asp-for="BrandId" class="form-select" asp-items="ViewBag.BrandId" required>
+                                    <option value="">-- Marke auswählen --</option>
+                                </select>
+                                <span asp-validation-for="BrandId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-check mb-3">
+                        <input asp-for="IsActive" class="form-check-input" />
+                        <label asp-for="IsActive" class="form-check-label">Aktiv</label>
+                    </div>
+                    
+                    <div class="form-group mt-4">
+                        <button type="submit" class="btn btn-primary">Speichern</button>
+                        <a asp-action="Index" class="btn btn-secondary">Zurück zur Liste</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        // Bildvorschau anzeigen, wenn ein Bild ausgewählt wird
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Bildvorschau aktualisieren, wenn URL geändert wird
+        document.getElementById('imageUrlInput').addEventListener('change', function(e) {
+            const url = e.target.value;
+            if (url) {
+                const preview = document.getElementById('imagePreview');
+                preview.src = url;
+            }
+        });
+    </script>
+} 

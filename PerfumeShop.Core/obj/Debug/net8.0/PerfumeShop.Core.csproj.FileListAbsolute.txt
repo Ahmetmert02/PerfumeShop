@@ -1,0 +1,12 @@
+C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\bin\Debug\net8.0\PerfumeShop.Core.deps.json
+C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\bin\Debug\net8.0\PerfumeShop.Core.dll
+C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\bin\Debug\net8.0\PerfumeShop.Core.pdb
+C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\PerfumeShop.Core.csproj.AssemblyReference.cache
+C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\PerfumeShop.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\PerfumeShop.Core.AssemblyInfoInputs.cache
+C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\PerfumeShop.Core.AssemblyInfo.cs
+C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\PerfumeShop.Core.csproj.CoreCompileInputs.cache
+C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\PerfumeShop.Core.dll
+C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\refint\PerfumeShop.Core.dll
+C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\PerfumeShop.Core.pdb
+C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\ref\PerfumeShop.Core.dll

@@ -1,0 +1,491 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="PerfumeShop - Luxus Parfüme">
+    <meta name="keywords" content="Parfüm, Luxus, Designer">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PerfumeShop</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/template/ogani-master/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/template/ogani-master/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/template/ogani-master/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/template/ogani-master/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/template/ogani-master/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/template/ogani-master/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/template/ogani-master/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/template/ogani-master/css/style.css" type="text/css">
+    <link rel="stylesheet" href="~/css/site.css" type="text/css">
+    
+    <style>
+        body {
+            font-family: 'SF Pro Display', sans-serif;
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            padding-top: 80px; /* Reduzierter Platz für den Header */
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e5e5;
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .header__logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header__logo h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .main-nav {
+            display: flex;
+            margin-left: 30px;
+        }
+        
+        .main-nav li {
+            list-style: none;
+            margin: 0 15px;
+        }
+        
+        .main-nav li a {
+            color: #1d1d1f;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .main-nav li a:hover {
+            color: #86754d;
+        }
+        
+        .main-nav li.active a {
+            color: #86754d;
+            font-weight: 600;
+        }
+        
+        .main-nav li.active a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #86754d;
+        }
+        
+        .auth-icons {
+            position: absolute;
+            top: 30px;
+            left: 20px;
+            z-index: 101;
+        }
+        
+        .auth-icons a {
+            color: #1d1d1f;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-icons a:hover {
+            color: #86754d;
+        }
+        
+        .cart-icon {
+            position: absolute;
+            top: 30px;
+            right: 20px;
+            z-index: 101;
+        }
+        
+        .cart-icon a {
+            color: #1d1d1f;
+            font-size: 20px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-icon a:hover {
+            color: #86754d;
+        }
+        
+        .cart-icon a span {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 18px;
+            height: 18px;
+            background-color: #86754d;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-slider {
+            height: 80vh;
+            position: relative;
+        }
+        
+        .hero-slider .owl-item img {
+            height: 80vh;
+            object-fit: cover;
+        }
+        
+        .hero-slider .hero__text {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            width: 100%;
+        }
+        
+        .hero-slider .hero__text h2 {
+            font-size: 48px;
+            color: #fff;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+        
+        .hero-slider .hero__text p {
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 35px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .primary-btn {
+            display: inline-block;
+            font-size: 14px;
+            padding: 12px 30px;
+            color: #fff;
+            background-color: #1d1d1f;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .primary-btn:hover {
+            background-color: #333;
+            color: #fff;
+        }
+        
+        .featured-section {
+            padding: 80px 0;
+        }
+        
+        .featured-section .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .featured-section .section-title h2 {
+            font-size: 36px;
+            font-weight: 600;
+        }
+        
+        .product-item {
+            margin-bottom: 30px;
+            background-color: #fff;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .product-item:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .product-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        
+        .product-item h5 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .product-item .product-price {
+            font-size: 16px;
+            color: #1d1d1f;
+            font-weight: 500;
+        }
+        
+        .footer {
+            background-color: #1d1d1f;
+            color: #f5f5f7;
+        }
+        
+        .footer__widget h6 {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        
+        .footer__widget ul li a {
+            color: #a1a1a6;
+            font-size: 14px;
+            line-height: 32px;
+        }
+        
+        .footer__copyright {
+            border-top: 1px solid #2d2d2f;
+            padding: 20px 0;
+        }
+        
+        .footer__copyright__text p {
+            color: #a1a1a6;
+            margin-bottom: 0;
+        }
+        
+        /* Apple/Tom Ford inspired slider */
+        .hero-slider .owl-dots {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .hero-slider .owl-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+        
+        .hero-slider .owl-dot.active {
+            background-color: #fff;
+        }
+        
+        /* Neue Split-Screen Slideshow Styles */
+        .split-screen-slideshow {
+            width: 100%;
+            height: calc(100vh - 96px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-link {
+            transition: width 0.32s ease-in-out;
+        }
+        
+        @@media (max-width: 767px) {
+            .split-screen-slideshow {
+                height: auto;
+            }
+            
+            .section-link {
+                height: 50vh;
+            }
+            
+            .auth-icons, .cart-icon {
+                top: 15px;
+            }
+            
+            .auth-icons {
+                left: 15px;
+            }
+            
+            .cart-icon {
+                right: 15px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+            
+            .main-nav {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <!-- Auth Icons -->
+        <div class="auth-icons">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a asp-controller="Account" asp-action="Logout" title="Logout"><i class="fa fa-sign-out"></i></a>
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="Login" title="Login"><i class="fa fa-sign-in"></i></a>
+            }
+        </div>
+        
+        <!-- Cart Icon -->
+        <div class="cart-icon">
+            <a asp-controller="Cart" asp-action="Index" title="Warenkorb">
+                <i class="fa fa-shopping-bag"></i>
+                <span>@(ViewBag.CartItemCount ?? 0)</span>
+            </a>
+        </div>
+        
+        <div class="container">
+            <div class="header-content">
+                <div class="header__logo">
+                    <h1><a href="/">PERFUME SHOP</a></h1>
+                    <ul class="main-nav">
+                        <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Index" ? "active" : "")">
+                            <a asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Products" ? "active" : "")">
+                            <a asp-controller="Products" asp-action="Index">Kollektion</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+    @RenderBody()
+
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Kontakt</h6>
+                        <ul>
+                            <li>Adresse: Lenzfrieder Str. 5a, Kempten</li>
+                            <li>Telefon: +49 176 22746826</li>
+                            <li>Email: ahmet-mert.keles@telefonica.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Nützliche Links</h6>
+                        <ul>
+                            <li><a href="#">Über uns</a></li>
+                            <li><a href="#">Versandinformationen</a></li>
+                            <li><a href="#">Datenschutz</a></li>
+                            <li><a href="#">AGB</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Kategorien</h6>
+                        <ul>
+                            <li><a href="#">Damen</a></li>
+                            <li><a href="#">Herren</a></li>
+                            <li><a href="#">Unisex</a></li>
+                          
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Newsletter</h6>
+                        <p>Erhalten Sie Updates zu neuen Produkten</p>
+                        <form action="#">
+                            <input type="text" placeholder="Ihre E-Mail">
+                            <button type="submit" class="primary-btn">Abonnieren</button>
+                        </form>
+                        <div class="footer__widget__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text">
+                            <p>
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> Alle Rechte vorbehalten | PerfumeShop
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+    
+    <!-- Js Plugins -->
+    <script src="~/template/ogani-master/js/jquery-3.3.1.min.js"></script>
+    <script src="~/template/ogani-master/js/bootstrap.min.js"></script>
+    <script src="~/template/ogani-master/js/jquery.nice-select.min.js"></script>
+    <script src="~/template/ogani-master/js/jquery-ui.min.js"></script>
+    <script src="~/template/ogani-master/js/jquery.slicknav.js"></script>
+    <script src="~/template/ogani-master/js/mixitup.min.js"></script>
+    <script src="~/template/ogani-master/js/owl.carousel.min.js"></script>
+    <script src="~/template/ogani-master/js/main.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Header scroll effect
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 50) {
+                    $('.header').addClass('scrolled');
+                } else {
+                    $('.header').removeClass('scrolled');
+                }
+            });
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

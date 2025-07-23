@@ -1,0 +1,164 @@
+@model PerfumeShop.Core.Entities.Order
+
+@{
+    ViewData["Title"] = "Order Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Order Details</h1>
+    <p class="mb-4">Details of order @Model.OrderNumber</p>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Order Information</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-sm-4 font-weight-bold">Order Number:</div>
+                        <div class="col-sm-8">@Model.OrderNumber</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 font-weight-bold">Date:</div>
+                        <div class="col-sm-8">@Model.OrderDate.ToString("dd.MM.yyyy HH:mm")</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 font-weight-bold">Status:</div>
+                        <div class="col-sm-8">
+                            @switch (Model.Status)
+                            {
+                                case PerfumeShop.Core.Entities.OrderStatus.Pending:
+                                    <span class="badge badge-warning">Pending</span>
+                                    break;
+                                case PerfumeShop.Core.Entities.OrderStatus.Processing:
+                                    <span class="badge badge-info">Processing</span>
+                                    break;
+                                case PerfumeShop.Core.Entities.OrderStatus.Shipped:
+                                    <span class="badge badge-primary">Shipped</span>
+                                    break;
+                                case PerfumeShop.Core.Entities.OrderStatus.Delivered:
+                                    <span class="badge badge-success">Delivered</span>
+                                    break;
+                                case PerfumeShop.Core.Entities.OrderStatus.Cancelled:
+                                    <span class="badge badge-danger">Cancelled</span>
+                                    break;
+                            }
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 font-weight-bold">Total Amount:</div>
+                        <div class="col-sm-8">@Model.TotalAmount.ToString("C")</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 font-weight-bold">Payment Method:</div>
+                        <div class="col-sm-8">@Model.PaymentMethod</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Customer Information</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-sm-4 font-weight-bold">Name:</div>
+                        <div class="col-sm-8">@(Model.User?.FirstName ?? "") @(Model.User?.LastName ?? "")</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 font-weight-bold">Email:</div>
+                        <div class="col-sm-8">@(Model.User?.Email ?? "")</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 font-weight-bold">Shipping Address:</div>
+                        <div class="col-sm-8">@Model.ShippingAddress</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Ordered Items</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.OrderItems != null)
+                        {
+                            @foreach (var item in Model.OrderItems)
+                            {
+                                <tr>
+                                    <td>@item.Product?.Name</td>
+                                    <td>@item.UnitPrice.ToString("C")</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.TotalPrice.ToString("C")</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="3" class="text-right">Total Amount:</th>
+                            <th>@Model.TotalAmount.ToString("C")</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Change Status</h6>
+        </div>
+        <div class="card-body">
+            <form asp-action="UpdateStatus" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <div class="form-group">
+                    <label for="status">New Status:</label>
+                    <select name="status" id="status" class="form-control">
+                       @*  <option value="@((int)PerfumeShop.Core.Entities.OrderStatus.Pending)" @(Model.Status == PerfumeShop.Core.Entities.OrderStatus.Pending ? "selected" : "")>Pending</option>
+                        <option value="@((int)PerfumeShop.Core.Entities.OrderStatus.Processing)" @(Model.Status == PerfumeShop.Core.Entities.OrderStatus.Processing ? "selected" : "")>Processing</option>
+                        <option value="@((int)PerfumeShop.Core.Entities.OrderStatus.Shipped)" @(Model.Status == PerfumeShop.Core.Entities.OrderStatus.Shipped ? "selected" : "")>Shipped</option>
+                        <option value="@((int)PerfumeShop.Core.Entities.OrderStatus.Delivered)" @(Model.Status == PerfumeShop.Core.Entities.OrderStatus.Delivered ? "selected" : "")>Delivered</option>
+                        <option value="@((int)PerfumeShop.Core.Entities.OrderStatus.Cancelled)" @(Model.Status == PerfumeShop.Core.Entities.OrderStatus.Cancelled ? "selected" : "")>Cancelled</option> *@
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Status</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div> 

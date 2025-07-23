@@ -1,0 +1,91 @@
+@model IEnumerable<PerfumeShop.Core.Entities.Order>
+
+@{
+    ViewData["Title"] = "Bestellungen";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Bestellungen</h1>
+    <p class="mb-4">Übersicht aller Bestellungen im System.</p>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Bestellungsliste</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Bestellnummer</th>
+                            <th>Datum</th>
+                            <th>Kunde</th>
+                            <th>Status</th>
+                            <th>Gesamtbetrag</th>
+                            <th>Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.OrderNumber</td>
+                                <td>@item.OrderDate.ToString("dd.MM.yyyy HH:mm")</td>
+                                <td>@(item.User?.FirstName ?? "") @(item.User?.LastName ?? "")</td>
+                                <td>
+                                    @switch (item.Status)
+                                    {
+                                        case PerfumeShop.Core.Entities.OrderStatus.Pending:
+                                            <span class="badge badge-warning">Ausstehend</span>
+                                            break;
+                                        case PerfumeShop.Core.Entities.OrderStatus.Processing:
+                                            <span class="badge badge-info">In Bearbeitung</span>
+                                            break;
+                                        case PerfumeShop.Core.Entities.OrderStatus.Shipped:
+                                            <span class="badge badge-primary">Versendet</span>
+                                            break;
+                                        case PerfumeShop.Core.Entities.OrderStatus.Delivered:
+                                            <span class="badge badge-success">Geliefert</span>
+                                            break;
+                                        case PerfumeShop.Core.Entities.OrderStatus.Cancelled:
+                                            <span class="badge badge-danger">Storniert</span>
+                                            break;
+                                    }
+                                </td>
+                                <td>@item.TotalAmount.ToString("C")</td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                                        <i class="fas fa-info-circle"></i> Details
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
+} 

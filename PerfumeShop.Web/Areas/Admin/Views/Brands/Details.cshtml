@@ -1,0 +1,73 @@
+@model PerfumeShop.Core.Entities.Brand
+
+@{
+    ViewData["Title"] = "Marken-Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Marken-Details</h1>
+    <p class="mb-4">Details der Marke @Model.Name</p>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Marken-Informationen</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <dl class="row">
+                        <dt class="col-sm-3">ID</dt>
+                        <dd class="col-sm-9">@Model.Id</dd>
+
+                        <dt class="col-sm-3">Name</dt>
+                        <dd class="col-sm-9">@Model.Name</dd>
+
+                        <dt class="col-sm-3">Beschreibung</dt>
+                        <dd class="col-sm-9">@Model.Description</dd>
+
+                        <dt class="col-sm-3">Status</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.IsActive)
+                            {
+                                <span class="badge badge-success">Aktiv</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">Inaktiv</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-3">Erstellt am</dt>
+                        <dd class="col-sm-9">@Model.CreatedAt.ToString()</dd>
+
+                        <dt class="col-sm-3">Aktualisiert am</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.UpdatedAt.HasValue)
+                            {
+                                @Model.UpdatedAt.Value.ToString()
+                            }
+                            else
+                            {
+                                <span>-</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-4">
+                    @if (!string.IsNullOrEmpty(Model.LogoUrl))
+                    {
+                        <div class="text-center">
+                            <img src="@Model.LogoUrl" alt="@Model.Name Logo" class="img-fluid" style="max-height: 200px;" />
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Bearbeiten</a>
+                <a asp-action="Index" class="btn btn-secondary">Zurück zur Liste</a>
+            </div>
+        </div>
+    </div>
+</div> 

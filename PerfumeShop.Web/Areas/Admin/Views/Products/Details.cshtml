@@ -1,0 +1,96 @@
+@model PerfumeShop.Core.Entities.Product
+
+@{
+    ViewData["Title"] = "Produktdetails";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid rounded" />
+                        }
+                        else
+                        {
+                            <img src="~/images/products/default.svg" alt="@Model.Name" class="img-fluid rounded" />
+                        }
+                    </div>
+                    <div class="col-md-8">
+                        <h2>@Model.Name</h2>
+                        <p class="text-muted">
+                            <span class="badge bg-primary">@Model.Brand?.Name</span>
+                            <span class="badge bg-secondary">@Model.Category?.Name</span>
+                            @if (Model.IsActive)
+                            {
+                                <span class="badge bg-success">Aktiv</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Inaktiv</span>
+                            }
+                        </p>
+                        <h4 class="text-primary">@Model.Price.ToString("C")</h4>
+                        <p><strong>Bestand:</strong> @Model.Stock Stück</p>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h5>Beschreibung</h5>
+                    <p>@Model.Description</p>
+                </div>
+
+                <div class="mb-4">
+                    <h5>Produktinformationen</h5>
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <th style="width: 30%">Produkt-ID</th>
+                                <td>@Model.Id</td>
+                            </tr>
+                            <tr>
+                                <th>Kategorie</th>
+                                <td>@Model.Category?.Name</td>
+                            </tr>
+                            <tr>
+                                <th>Marke</th>
+                                <td>@Model.Brand?.Name</td>
+                            </tr>
+                            <tr>
+                                <th>Preis</th>
+                                <td>@Model.Price.ToString("C")</td>
+                            </tr>
+                            <tr>
+                                <th>Bestand</th>
+                                <td>@Model.Stock</td>
+                            </tr>
+                            <tr>
+                                <th>Status</th>
+                                <td>
+                                    @if (Model.IsActive)
+                                    {
+                                        <span class="badge bg-success">Aktiv</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Inaktiv</span>
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Bearbeiten</a>
+                    <a asp-action="Index" class="btn btn-secondary">Zurück zur Liste</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

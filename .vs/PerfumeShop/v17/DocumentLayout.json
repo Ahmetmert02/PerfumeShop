@@ -1,0 +1,120 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C7ED44CF-6C7F-4E82-97DA-720BDF871082}|PerfumeShop.API\\PerfumeShop.API.csproj|c:\\users\\ahmet\\onedrive\\desktop\\perfumeshop\\perfumeshop.api\\controllers\\cartitemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C7ED44CF-6C7F-4E82-97DA-720BDF871082}|PerfumeShop.API\\PerfumeShop.API.csproj|solutionrelative:perfumeshop.api\\controllers\\cartitemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD30884C-6E1D-4B1C-97BB-CBA974597C9E}|PerfumeShop.Web\\PerfumeShop.Web.csproj|c:\\users\\ahmet\\onedrive\\desktop\\perfumeshop\\perfumeshop.web\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD30884C-6E1D-4B1C-97BB-CBA974597C9E}|PerfumeShop.Web\\PerfumeShop.Web.csproj|solutionrelative:perfumeshop.web\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD30884C-6E1D-4B1C-97BB-CBA974597C9E}|PerfumeShop.Web\\PerfumeShop.Web.csproj|c:\\users\\ahmet\\onedrive\\desktop\\perfumeshop\\perfumeshop.web\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD30884C-6E1D-4B1C-97BB-CBA974597C9E}|PerfumeShop.Web\\PerfumeShop.Web.csproj|solutionrelative:perfumeshop.web\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD30884C-6E1D-4B1C-97BB-CBA974597C9E}|PerfumeShop.Web\\PerfumeShop.Web.csproj|c:\\users\\ahmet\\onedrive\\desktop\\perfumeshop\\perfumeshop.web\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD30884C-6E1D-4B1C-97BB-CBA974597C9E}|PerfumeShop.Web\\PerfumeShop.Web.csproj|solutionrelative:perfumeshop.web\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD30884C-6E1D-4B1C-97BB-CBA974597C9E}|PerfumeShop.Web\\PerfumeShop.Web.csproj|c:\\users\\ahmet\\onedrive\\desktop\\perfumeshop\\perfumeshop.web\\areas\\admin\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD30884C-6E1D-4B1C-97BB-CBA974597C9E}|PerfumeShop.Web\\PerfumeShop.Web.csproj|solutionrelative:perfumeshop.web\\areas\\admin\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD30884C-6E1D-4B1C-97BB-CBA974597C9E}|PerfumeShop.Web\\PerfumeShop.Web.csproj|c:\\users\\ahmet\\onedrive\\desktop\\perfumeshop\\perfumeshop.web\\views\\cart\\checkout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DD30884C-6E1D-4B1C-97BB-CBA974597C9E}|PerfumeShop.Web\\PerfumeShop.Web.csproj|solutionrelative:perfumeshop.web\\views\\cart\\checkout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CartItemsController.cs",
+              "DocumentMoniker": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.API\\Controllers\\CartItemsController.cs",
+              "RelativeDocumentMoniker": "PerfumeShop.API\\Controllers\\CartItemsController.cs",
+              "ToolTip": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.API\\Controllers\\CartItemsController.cs",
+              "RelativeToolTip": "PerfumeShop.API\\Controllers\\CartItemsController.cs",
+              "ViewState": "AQIAAGgAAAAAAAAAAAAgwHMAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T19:09:04.432Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ApiService.cs",
+              "DocumentMoniker": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\Services\\ApiService.cs",
+              "RelativeDocumentMoniker": "PerfumeShop.Web\\Services\\ApiService.cs",
+              "ToolTip": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\Services\\ApiService.cs",
+              "RelativeToolTip": "PerfumeShop.Web\\Services\\ApiService.cs",
+              "ViewState": "AQIAABIDAAAAAAAAAADgvx4DAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T18:01:50.538Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProductsController.cs",
+              "DocumentMoniker": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\Areas\\Admin\\Controllers\\ProductsController.cs",
+              "RelativeDocumentMoniker": "PerfumeShop.Web\\Areas\\Admin\\Controllers\\ProductsController.cs",
+              "ToolTip": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\Areas\\Admin\\Controllers\\ProductsController.cs",
+              "RelativeToolTip": "PerfumeShop.Web\\Areas\\Admin\\Controllers\\ProductsController.cs",
+              "ViewState": "AQIAACQAAAAAAAAAAAAYwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T15:52:49.71Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "PerfumeShop.Web\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "PerfumeShop.Web\\Controllers\\AccountController.cs",
+              "ViewState": "AQIAAIABAAAAAAAAAAAowKgAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T15:52:09.465Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CartController.cs",
+              "DocumentMoniker": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\Controllers\\CartController.cs",
+              "RelativeDocumentMoniker": "PerfumeShop.Web\\Controllers\\CartController.cs",
+              "ToolTip": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\Controllers\\CartController.cs",
+              "RelativeToolTip": "PerfumeShop.Web\\Controllers\\CartController.cs",
+              "ViewState": "AQIAAC4AAAAAAAAAAAAvwDwAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T15:51:23.73Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Checkout.cshtml",
+              "DocumentMoniker": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\Views\\Cart\\Checkout.cshtml",
+              "RelativeDocumentMoniker": "PerfumeShop.Web\\Views\\Cart\\Checkout.cshtml",
+              "ToolTip": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\Views\\Cart\\Checkout.cshtml",
+              "RelativeToolTip": "PerfumeShop.Web\\Views\\Cart\\Checkout.cshtml",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAABUAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-23T15:51:16.732Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

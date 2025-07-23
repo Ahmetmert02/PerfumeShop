@@ -1,0 +1,470 @@
+@model IEnumerable<PerfumeShop.Core.Entities.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<style>
+    /* New color palette */
+    :root {
+        --color-burgundy: #800020;
+        --color-dark-brown: #5D4037;
+        --color-medium-brown: #8D6E63;
+        --color-light-brown: #D7CCC8;
+        --color-black: #212121;
+        --color-cream: #EFEBE9;
+    }
+
+    .sidebar__item h4 {
+        color: var(--color-burgundy);
+        font-weight: 600;
+        border-bottom: 2px solid var(--color-burgundy);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .sidebar {
+        background-color: var(--color-cream);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .sidebar__item ul li a {
+        color: var(--color-dark-brown);
+        transition: all 0.3s;
+    }
+
+    .sidebar__item ul li a:hover {
+        color: var(--color-burgundy);
+        padding-left: 5px;
+    }
+
+    .product__item {
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        transition: all 0.3s;
+    }
+
+    .product__item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .product__discount__title h2,
+    .section-title h2 {
+        color: var(--color-burgundy);
+    }
+
+    .product__item__price {
+        color: var(--color-dark-brown);
+        font-weight: 600;
+    }
+
+    .product__pagination a {
+        background-color: var(--color-cream);
+        color: var(--color-dark-brown);
+    }
+
+    .product__pagination a.active {
+        background-color: var(--color-burgundy);
+        color: white;
+    }
+
+    .search-form {
+        background-color: var(--color-cream);
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .search-input {
+        border: 1px solid var(--color-medium-brown);
+        border-radius: 4px;
+        padding: 10px 15px;
+        width: 100%;
+    }
+
+    .search-btn {
+        background-color: var(--color-burgundy);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .search-btn:hover {
+        background-color: var(--color-dark-brown);
+    }
+
+    .category-btn {
+        background-color: var(--color-light-brown);
+        color: var(--color-black);
+        border: none;
+        border-radius: 20px;
+        padding: 8px 15px;
+        margin: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .category-btn:hover, .category-btn.active {
+        background-color: var(--color-burgundy);
+        color: white;
+    }
+
+    .filter__item {
+        background-color: var(--color-cream);
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+</style>
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" style="background-color: #000000;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2 style="color: #ffffff;">Products</h2>
+                    <div class="breadcrumb__option">
+                        <a href="/" style="color: #6F4E37;">Home</a>
+                        <span style="color: #ffffff;">Products</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<section class="product spad">
+    <div class="container">
+        <!-- Suchbereich -->
+        <div class="row mb-5">
+            <div class="col-lg-12">
+                <div class="search-form">
+                    <form asp-action="Index" method="get" class="row g-3">
+                        <div class="col-md-6">
+                            <input type="text" name="searchTerm" class="search-input" placeholder="Search for perfume..." value="@ViewBag.CurrentSearchTerm">
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="search-btn w-100">
+                                <i class="fa fa-search"></i> Search
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <a asp-action="Index" class="search-btn w-100 text-center d-block">
+                                <i class="fa fa-refresh"></i> Reset
+                            </a>
+                        </div>
+                        
+                        <div class="col-12 mt-3">
+                            <div class="d-flex flex-wrap">
+                                <a asp-action="Index" class="category-btn @(ViewBag.CurrentCategoryId == null ? "active" : "")">
+                                    All Products
+                                </a>
+                                @if (ViewBag.Categories != null)
+                                {
+                                    @foreach (var category in ViewBag.Categories)
+                                    {
+                                        <a asp-action="Index" asp-route-categoryId="@category.Id" class="category-btn @(ViewBag.CurrentCategoryId == category.Id ? "active" : "")">
+                                            @category.Name
+                                        </a>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-5">
+                <div class="sidebar">
+                    <div class="sidebar__item">
+                        <h4>Categories</h4>
+                        <ul>
+                            <li><a asp-action="Index" class="@(ViewBag.CurrentCategoryId == null ? "text-burgundy font-weight-bold" : "")">All Perfumes</a></li>
+                            @if (ViewBag.Categories != null)
+                            {
+                                @foreach (var category in ViewBag.Categories)
+                                {
+                                    <li>
+                                        <a asp-action="Index" asp-route-categoryId="@category.Id" class="@(ViewBag.CurrentCategoryId == category.Id ? "text-burgundy font-weight-bold" : "")">
+                                            @category.Name
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <div class="sidebar__item">
+                        <h4>Price</h4>
+                        <div class="price-range-wrap">
+                            <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
+                                 data-min="10" data-max="500">
+                                <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
+                                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                            </div>
+                            <div class="range-slider">
+                                <div class="price-input">
+                                    <input type="text" id="minamount">
+                                    <input type="text" id="maxamount">
+                                </div>
+                            </div>
+                            <button id="apply-price-filter" class="search-btn mt-2 w-100">Apply Price</button>
+                        </div>
+                    </div>
+                    <div class="sidebar__item">
+                        <h4>Brands</h4>
+                        <div class="sidebar__item__brand">
+                            @if (ViewBag.Brands != null)
+                            {
+                                @foreach (var brand in ViewBag.Brands)
+                                {
+                                    <div class="sidebar__item__brand__option">
+                                        <label for="brand-@brand.Id" class="d-flex align-items-center">
+                                            <input type="checkbox" id="brand-@brand.Id" data-brand-id="@brand.Id" class="brand-filter me-2"
+                                                   @(ViewBag.CurrentBrandId == brand.Id.ToString() ? "checked" : "")>
+                                            @brand.Name
+                                        </label>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <button id="apply-brand-filter" class="search-btn mt-3 w-100">Apply Brands</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-7">
+                @if (Model != null && Model.Any(p => p.IsActive && p.Price < p.Price * 1.2m))
+                {
+                    <div class="product__discount">
+                        <div class="section-title product__discount__title">
+                            <h2>Offers</h2>
+                        </div>
+                        <div class="row">
+                            <div class="product__discount__slider owl-carousel">
+                                @foreach (var product in Model.Where(p => p.IsActive && p.Price < p.Price * 1.2m).Take(6))
+                                {
+                                    <div class="col-lg-4">
+                                        <div class="product__discount__item">
+                                            <div class="product__discount__item__pic set-bg"
+                                                 data-setbg="@(string.IsNullOrEmpty(product.ImageUrl) ? "/images/products/default.svg" : product.ImageUrl)">
+                                                <div class="product__discount__percent">-20%</div>
+                                                <ul class="product__item__pic__hover">
+                                                    <li><a asp-action="Details" asp-route-id="@product.Id"><i class="fa fa-retweet"></i></a></li>
+                                                    <li>
+                                                        <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                                                            <input type="hidden" name="productId" value="@product.Id" />
+                                                            <input type="hidden" name="quantity" value="1" />
+                                                            <button type="submit" class="border-0 bg-transparent">
+                                                                <a><i class="fa fa-shopping-cart"></i></a>
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="product__discount__item__text">
+                                                <span>@product.Category?.Name</span>
+                                                <h5><a asp-action="Details" asp-route-id="@product.Id">@product.Name</a></h5>
+                                                <div class="product__item__price">@product.Price.ToString("C") <span>@((product.Price * 1.2m).ToString("C"))</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="filter__item">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-5">
+                            <div class="filter__sort">
+                                <span>Sort by</span>
+                                <select id="sort-options">
+                                    @if (ViewBag.CurrentSort == "name")
+                                    {
+                                        <option value="name" selected>Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="name">Name</option>
+                                    }
+
+                                    @if (ViewBag.CurrentSort == "price-asc")
+                                    {
+                                        <option value="price-asc" selected>Price ascending</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="price-asc">Price ascending</option>
+                                    }
+
+                                    @if (ViewBag.CurrentSort == "price-desc")
+                                    {
+                                        <option value="price-desc" selected>Price descending</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="price-desc">Price descending</option>
+                                    }
+                                </select>
+                                                                       
+                                
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="filter__found">
+                                <h6><span>@(Model?.Count() ?? 0)</span> products found</h6>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-3">
+                            <div class="filter__option">
+                                <span class="icon_grid-2x2"></span>
+                                <span class="icon_ul"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var product in Model)
+                        {
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item">
+                                    <div class="product__item__pic set-bg" data-setbg="@(string.IsNullOrEmpty(product.ImageUrl) ? "/images/products/default.svg" : product.ImageUrl)">
+                                        <ul class="product__item__pic__hover">
+                                            <li><a asp-action="Details" asp-route-id="@product.Id"><i class="fa fa-retweet"></i></a></li>
+                                            <li>
+                                                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                                                    <input type="hidden" name="productId" value="@product.Id" />
+                                                    <input type="hidden" name="quantity" value="1" />
+                                                    <button type="submit" class="border-0 bg-transparent @(product.Stock <= 0 ? "disabled" : "")" @(product.Stock <= 0 ? "disabled" : "")>
+                                                        <a><i class="fa fa-shopping-cart"></i></a>
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="product__item__text">
+                                        <h6><a asp-action="Details" asp-route-id="@product.Id">@product.Name</a></h6>
+                                        <h5>@product.Price.ToString("C")</h5>
+                                        <p class="mb-0">@product.Brand?.Name</p>
+                                        @if (product.Stock <= 0)
+                                        {
+                                            <span class="text-danger">Not available</span>
+                                        }
+                                        else if (product.Stock < 5)
+                                        {
+                                            <span class="text-warning">Only @product.Stock in stock</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                No products found.
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="product__pagination">
+                    @if (ViewBag.TotalPages != null)
+                    {
+                        for (int i = 1; i <= ViewBag.TotalPages; i++)
+                        {
+                            <a href="@Url.Action("Index", new { page = i, categoryId = ViewBag.CurrentCategoryId, brandId = ViewBag.CurrentBrandId, searchTerm = ViewBag.CurrentSearchTerm, sort = ViewBag.CurrentSort })" 
+                               class="@(ViewBag.CurrentPage == i ? "active" : "")">@i</a>
+                        }
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                        {
+                            <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, categoryId = ViewBag.CurrentCategoryId, brandId = ViewBag.CurrentBrandId, searchTerm = ViewBag.CurrentSearchTerm, sort = ViewBag.CurrentSort })">
+                                <i class="fa fa-long-arrow-right"></i>
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Setze Hintergrundbilder für Produkte
+            $('.set-bg').each(function() {
+                var bg = $(this).data('setbg');
+                $(this).css('background-image', 'url(' + bg + ')');
+            });
+
+            // Sortierung
+            $('#sort-options').change(function() {
+                var sortOption = $(this).val();
+                var url = new URL(window.location.href);
+                url.searchParams.set('sort', sortOption);
+                window.location.href = url.toString();
+            });
+            
+            // Preisfilter anwenden
+            $('#apply-price-filter').click(function() {
+                var minPrice = $('#minamount').val().replace('€', '').trim();
+                var maxPrice = $('#maxamount').val().replace('€', '').trim();
+                
+                var url = new URL(window.location.href);
+                url.searchParams.set('minPrice', minPrice);
+                url.searchParams.set('maxPrice', maxPrice);
+                window.location.href = url.toString();
+            });
+            
+            // Markenfilter anwenden
+            $('#apply-brand-filter').click(function() {
+                var selectedBrands = [];
+                $('.brand-filter:checked').each(function() {
+                    selectedBrands.push($(this).data('brand-id'));
+                });
+                
+                var url = new URL(window.location.href);
+                if (selectedBrands.length > 0) {
+                    url.searchParams.set('brandId', selectedBrands.join(','));
+                } else {
+                    url.searchParams.delete('brandId');
+                }
+                window.location.href = url.toString();
+            });
+            
+            // Initialisiere Preisslider
+            $(".price-range").slider({
+                range: true,
+                min: 10,
+                max: 500,
+                values: [
+                    @(ViewBag.CurrentMinPrice ?? 10),
+                    @(ViewBag.CurrentMaxPrice ?? 500)
+                ],
+                slide: function(event, ui) {
+                    $("#minamount").val(ui.values[0] + "€");
+                    $("#maxamount").val(ui.values[1] + "€");
+                }
+            });
+            
+            $("#minamount").val($(".price-range").slider("values", 0) + "€");
+            $("#maxamount").val($(".price-range").slider("values", 1) + "€");
+        });
+    </script>
+} 

@@ -1,0 +1,263 @@
+@model PerfumeShop.Core.Entities.Order
+@inject IApiService _apiService
+@using PerfumeShop.Web.Services
+
+@{
+    ViewData["Title"] = "Order Confirmation";
+    
+    // Load product details for each OrderItem
+    if (Model != null && Model.OrderItems != null)
+    {
+        foreach (var item in Model.OrderItems)
+        {
+            item.Product = await _apiService.GetProductByIdAsync(item.ProductId);
+        }
+    }
+}
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" style="background-color: #000000;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2 style="color: #ffffff;">Order Confirmation</h2>
+                    <div class="breadcrumb__option">
+                        <a href="/" style="color: #6F4E37;">Home</a>
+                        <a href="/Cart" style="color: #6F4E37;">Shopping Cart</a>
+                        <span style="color: #ffffff;">Order Confirmation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Order Confirmation Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        <div class="text-center mb-5">
+            <i class="fa fa-check-circle text-success" style="font-size: 5rem;"></i>
+            <h2 class="mt-3">Thank you for your order!</h2>
+            <p class="lead">Your order has been placed successfully.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="checkout__order">
+                    <h4>Order Details</h4>
+                    <div class="order-details">
+                        <div class="order-detail-item">
+                            <div class="order-detail-label">Order Number:</div>
+                            <div class="order-detail-value">@Model.OrderNumber</div>
+                        </div>
+                        <div class="order-detail-item">
+                            <div class="order-detail-label">Order Date:</div>
+                            <div class="order-detail-value">@Model.OrderDate.ToString("dd.MM.yyyy HH:mm")</div>
+                        </div>
+                        <div class="order-detail-item">
+                            <div class="order-detail-label">Status:</div>
+                            <div class="order-detail-value">@Model.Status</div>
+                        </div>
+                        <div class="order-detail-item">
+                            <div class="order-detail-label">Total Amount:</div>
+                            <div class="order-detail-value">@Model.TotalAmount.ToString("C")</div>
+                        </div>
+                        <div class="order-detail-item">
+                            <div class="order-detail-label">Shipping Address:</div>
+                            <div class="order-detail-value">@Model.ShippingAddress</div>
+                        </div>
+                        <div class="order-detail-item">
+                            <div class="order-detail-label">Payment Method:</div>
+                            <div class="order-detail-value">@Model.PaymentMethod</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bestellte Produkte -->
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <div class="checkout__order">
+                    <h4>Ordered Products</h4>
+                    <table class="table" style="color: white;">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.OrderItems != null && Model.OrderItems.Any())
+                            {
+                                foreach (var item in Model.OrderItems)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                @if (item.Product != null && !string.IsNullOrEmpty(item.Product.ImageUrl))
+                                                {
+                                                    <img src="@item.Product.ImageUrl" alt="@item.Product.Name" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="/images/no-image.jpg" alt="No Image" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;" />
+                                                }
+                                                <span>@(item.Product?.Name ?? $"Product #{item.ProductId}")</span>
+                                            </div>
+                                        </td>
+                                        <td>@item.UnitPrice.ToString("C")</td>
+                                        <td>@item.Quantity</td>
+                                        <td>@item.TotalPrice.ToString("C")</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-center">No products found in the order.</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-right"><strong>Total Amount:</strong></td>
+                                <td><strong>@Model.TotalAmount.ToString("C")</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-lg-12 text-center">
+                <a href="/" class="primary-btn">BACK TO HOMEPAGE</a>
+                <a href="/Products" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Order Confirmation Section End -->
+
+<style>
+    .primary-btn {
+        background: #6F4E37; /* Braun */
+        color: #ffffff;
+        border: none;
+        padding: 12px 30px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        display: inline-block;
+        transition: all, 0.3s;
+        margin: 0 10px;
+    }
+
+    .primary-btn:hover {
+        background: #5a3d29;
+        color: #ffffff;
+    }
+
+    .cart-btn {
+        background: #6F4E37; /* Braun */
+        color: #ffffff;
+    }
+
+    .cart-btn:hover {
+        background: #5a3d29;
+        color: #ffffff;
+    }
+
+    .breadcrumb-section {
+        background-color: #000000;
+        padding: 45px 0;
+    }
+
+    .breadcrumb__text h2 {
+        color: #ffffff;
+        font-size: 46px;
+        font-weight: 700;
+    }
+
+    .breadcrumb__option a {
+        color: #6F4E37;
+        font-size: 16px;
+        display: inline-block;
+        margin-right: 20px;
+        position: relative;
+    }
+
+    .breadcrumb__option a:after {
+        position: absolute;
+        right: -12px;
+        top: 0;
+        content: "|";
+        color: #ffffff;
+    }
+
+    .breadcrumb__option span {
+        color: #ffffff; /* Weiß statt Rot */
+        font-size: 16px;
+    }
+
+    .checkout__order {
+        background: #000000; /* Schwarz statt hellgrau */
+        padding: 30px;
+        padding-top: 20px;
+        border-radius: 5px;
+        color: #ffffff; /* Weiße Schrift für besseren Kontrast */
+    }
+
+    .checkout__order h4 {
+        color: #ffffff; /* Weiß statt schwarz */
+        font-weight: 700;
+        border-bottom: 1px solid #333333; /* Dunklere Trennlinie */
+        padding-bottom: 20px;
+        margin-bottom: 25px;
+    }
+
+    .order-details {
+        padding: 0 15px;
+    }
+
+    .order-detail-item {
+        display: flex;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #333333; /* Dunklere Trennlinie */
+        padding-bottom: 15px;
+    }
+
+    .order-detail-item:last-child {
+        border-bottom: none;
+    }
+
+    .order-detail-label {
+        flex: 0 0 30%;
+        font-weight: 700;
+        color: #ffffff; /* Weiß statt schwarz */
+    }
+
+    .order-detail-value {
+        flex: 0 0 70%;
+        color: #ffffff; /* Weiß statt schwarz */
+    }
+
+    .text-success {
+        color: #6F4E37 !important; /* Braun statt Rot */
+    }
+
+    h2 {
+        color: #333333;
+        font-weight: 700;
+    }
+
+    .lead {
+        color: #333333;
+        font-size: 18px;
+    }
+</style> 
