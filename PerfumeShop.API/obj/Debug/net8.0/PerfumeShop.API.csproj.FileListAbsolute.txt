@@ -126,6 +126,7 @@ C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.API\obj\Debug\net8.0\Per
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.API\obj\Debug\net8.0\PerfumeShop.API.csproj.CoreCompileInputs.cache
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.API\obj\Debug\net8.0\PerfumeShop.API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.API\obj\Debug\net8.0\PerfumeShop.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.API\obj\Debug\net8.0\PerfumeShop.API.sourcelink.json
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.API\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.API\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.API\obj\Debug\net8.0\staticwebassets\msbuild.PerfumeShop.API.Microsoft.AspNetCore.StaticWebAssets.props

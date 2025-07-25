@@ -80,6 +80,7 @@ namespace PerfumeShop.Web.Areas.Admin.Controllers
                     
                     Console.WriteLine("ModelState is valid, calling API service...");
                     Console.WriteLine($"Image URL after upload: {product.ImageUrl}");
+                    Console.WriteLine($"CategoryId: {product.CategoryId}, BrandId: {product.BrandId}");
                     
                     var result = await _apiService.CreateProductAsync(product);
                     
@@ -230,12 +231,22 @@ namespace PerfumeShop.Web.Areas.Admin.Controllers
 
         private async Task PopulateDropdowns()
         {
-            // Get categories and brands for dropdowns
-            var categories = await _apiService.GetCategoriesAsync();
-            var brands = await _apiService.GetBrandsAsync();
-            
-            ViewBag.Categories = new SelectList(categories, "Id", "Name");
-            ViewBag.Brands = new SelectList(brands, "Id", "Name");
+            try
+            {
+                // Get categories and brands for dropdowns
+                var categories = await _apiService.GetCategoriesAsync();
+                var brands = await _apiService.GetBrandsAsync();
+                
+                // Die SelectList-Namen müssen mit den Namen in der View übereinstimmen
+                ViewBag.Categories = new SelectList(categories, "Id", "Name");
+                ViewBag.Brands = new SelectList(brands, "Id", "Name");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fehler beim Laden der Dropdown-Daten: {ex.Message}");
+                ViewBag.Categories = new SelectList(Enumerable.Empty<SelectListItem>());
+                ViewBag.Brands = new SelectList(Enumerable.Empty<SelectListItem>());
+            }
         }
 
         private async Task<string> SaveImageAsync(IFormFile imageFile)

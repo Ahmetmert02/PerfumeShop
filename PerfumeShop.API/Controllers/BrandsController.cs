@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PerfumeShop.Core.Entities;
 using PerfumeShop.Core.Interfaces;
+using PerfumeShop.API.Models;
 
 namespace PerfumeShop.API.Controllers
 {
@@ -19,12 +20,21 @@ namespace PerfumeShop.API.Controllers
 
         // GET: api/Brands
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Brand>>> GetBrands()
+        public async Task<ActionResult<IEnumerable<BrandDto>>> GetBrands()
         {
             try
             {
                 var brands = await _unitOfWork.Repository<Brand>().GetAllAsync();
-                return Ok(brands);
+                var brandsDto = brands.Select(brand => new BrandDto
+                {
+                    Id = brand.Id,
+                    Name = brand.Name,
+                    Description = brand.Description,
+                    LogoUrl = brand.LogoUrl,
+                    IsActive = brand.IsActive
+                }).ToList();
+                
+                return Ok(brandsDto);
             }
             catch (Exception ex)
             {
@@ -34,7 +44,7 @@ namespace PerfumeShop.API.Controllers
 
         // GET: api/Brands/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Brand>> GetBrand(int id)
+        public async Task<ActionResult<BrandDto>> GetBrand(int id)
         {
             try
             {
@@ -45,7 +55,16 @@ namespace PerfumeShop.API.Controllers
                     return NotFound();
                 }
 
-                return Ok(brand);
+                var brandDto = new BrandDto
+                {
+                    Id = brand.Id,
+                    Name = brand.Name,
+                    Description = brand.Description,
+                    LogoUrl = brand.LogoUrl,
+                    IsActive = brand.IsActive
+                };
+                
+                return Ok(brandDto);
             }
             catch (Exception ex)
             {
@@ -56,16 +75,28 @@ namespace PerfumeShop.API.Controllers
         // PUT: api/Brands/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> PutBrand(int id, Brand brand)
+        public async Task<IActionResult> PutBrand(int id, BrandDto brandDto)
         {
-            if (id != brand.Id)
+            if (id != brandDto.Id)
             {
                 return BadRequest();
             }
 
             try
             {
+                var brand = await _unitOfWork.Repository<Brand>().GetByIdAsync(id);
+                if (brand == null)
+                {
+                    return NotFound();
+                }
+                
+                // Update properties
+                brand.Name = brandDto.Name;
+                brand.Description = brandDto.Description;
+                brand.LogoUrl = brandDto.LogoUrl;
+                brand.IsActive = brandDto.IsActive;
                 brand.UpdatedAt = DateTime.Now;
+                
                 _unitOfWork.Repository<Brand>().Update(brand);
                 await _unitOfWork.CompleteAsync();
                 
@@ -91,17 +122,33 @@ namespace PerfumeShop.API.Controllers
         // POST: api/Brands
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<Brand>> PostBrand(Brand brand)
+        public async Task<ActionResult<BrandDto>> PostBrand(CreateBrandDto createBrandDto)
         {
             try
             {
-                brand.CreatedAt = DateTime.Now;
-                brand.UpdatedAt = DateTime.Now;
+                var brand = new Brand
+                {
+                    Name = createBrandDto.Name,
+                    Description = createBrandDto.Description,
+                    LogoUrl = createBrandDto.LogoUrl,
+                    IsActive = createBrandDto.IsActive,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now
+                };
                 
                 await _unitOfWork.Repository<Brand>().AddAsync(brand);
                 await _unitOfWork.CompleteAsync();
 
-                return CreatedAtAction("GetBrand", new { id = brand.Id }, brand);
+                var brandDto = new BrandDto
+                {
+                    Id = brand.Id,
+                    Name = brand.Name,
+                    Description = brand.Description,
+                    LogoUrl = brand.LogoUrl,
+                    IsActive = brand.IsActive
+                };
+
+                return CreatedAtAction("GetBrand", new { id = brand.Id }, brandDto);
             }
             catch (Exception ex)
             {

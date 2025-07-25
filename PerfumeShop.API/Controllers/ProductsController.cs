@@ -127,6 +127,20 @@ namespace PerfumeShop.API.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<ProductDto>> PostProduct(CreateProductDto productDto)
         {
+            // Überprüfen, ob die angegebene Brand existiert
+            var brand = await _unitOfWork.Repository<Brand>().GetByIdAsync(productDto.BrandId);
+            if (brand == null)
+            {
+                return BadRequest($"Marke mit ID {productDto.BrandId} wurde nicht gefunden.");
+            }
+
+            // Überprüfen, ob die angegebene Category existiert
+            var category = await _unitOfWork.Repository<Category>().GetByIdAsync(productDto.CategoryId);
+            if (category == null)
+            {
+                return BadRequest($"Kategorie mit ID {productDto.CategoryId} wurde nicht gefunden.");
+            }
+
             var product = new Product
             {
                 Name = productDto.Name,
@@ -136,14 +150,13 @@ namespace PerfumeShop.API.Controllers
                 ImageUrl = productDto.ImageUrl,
                 IsActive = true,
                 CategoryId = productDto.CategoryId,
-                BrandId = productDto.BrandId
+                BrandId = productDto.BrandId,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
             };
 
             await _unitOfWork.Products.AddAsync(product);
             await _unitOfWork.CompleteAsync();
-
-            var category = await _unitOfWork.Categories.GetByIdAsync(product.CategoryId);
-            var brand = await _unitOfWork.Brands.GetByIdAsync(product.BrandId);
 
             var createdProductDto = new ProductDto
             {
@@ -156,8 +169,8 @@ namespace PerfumeShop.API.Controllers
                 IsActive = product.IsActive,
                 CategoryId = product.CategoryId,
                 BrandId = product.BrandId,
-                CategoryName = category?.Name,
-                BrandName = brand?.Name
+                CategoryName = category.Name,
+                BrandName = brand.Name
             };
 
             return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, createdProductDto);

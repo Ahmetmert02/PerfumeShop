@@ -17,12 +17,20 @@
       "PackagePath": "staticwebassets\\images\\categories\\README.txt"
     },
     {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\01350cc1-19fe-4c18-8a6f-e60480b931a3_tom-ford-11126-ead6ac.webp",
+      "PackagePath": "staticwebassets\\images\\products\\01350cc1-19fe-4c18-8a6f-e60480b931a3_tom-ford-11126-ead6ac.webp"
+    },
+    {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\0998ffa5-2d04-40a0-9310-d11ddd1d99f3_Ana-Abiyedh-Rouge-by-Lattafa-Perfume-Unisex-72-Essences.webp",
       "PackagePath": "staticwebassets\\images\\products\\0998ffa5-2d04-40a0-9310-d11ddd1d99f3_Ana-Abiyedh-Rouge-by-Lattafa-Perfume-Unisex-72-Essences.webp"
     },
     {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\0d21542a-d2af-4930-b67e-5e9c804c5d31_tom-ford-tobacco-vanille-edp-100-ml-unisex-parfum-668721da1f8d4.jpg",
       "PackagePath": "staticwebassets\\images\\products\\0d21542a-d2af-4930-b67e-5e9c804c5d31_tom-ford-tobacco-vanille-edp-100-ml-unisex-parfum-668721da1f8d4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\0edacfca-1d47-4f36-9495-1dc02658eb33_tom-ford-11126-ead6ac.webp",
+      "PackagePath": "staticwebassets\\images\\products\\0edacfca-1d47-4f36-9495-1dc02658eb33_tom-ford-11126-ead6ac.webp"
     },
     {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\26d89b44-1aba-45c3-aef2-ec9ac93e0896_5c170219adadc89ea4d1c6fe8d7bd2bc.jpg",
@@ -33,16 +41,44 @@
       "PackagePath": "staticwebassets\\images\\products\\2815d77b-5b06-4e4d-aa9e-c00176712b1e_lattafa-khamrah-100-ml.webp"
     },
     {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\2b5a1625-714a-4f0b-8e96-d415a5a93ad2_tom-ford-11126-ead6ac.webp",
+      "PackagePath": "staticwebassets\\images\\products\\2b5a1625-714a-4f0b-8e96-d415a5a93ad2_tom-ford-11126-ead6ac.webp"
+    },
+    {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\31a1911f-2353-4067-9030-482b082037b6_Xerjoff_Alexandria_II.webp",
       "PackagePath": "staticwebassets\\images\\products\\31a1911f-2353-4067-9030-482b082037b6_Xerjoff_Alexandria_II.webp"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\3cefb53b-9999-4ec9-8518-bca7189fc7a5_unisex2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\3cefb53b-9999-4ec9-8518-bca7189fc7a5_unisex2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\3d8d9c6a-bb75-40dd-b662-62008f721d80_236047146alt2.avif",
+      "PackagePath": "staticwebassets\\images\\products\\3d8d9c6a-bb75-40dd-b662-62008f721d80_236047146alt2.avif"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\4379e1dc-5020-48ed-9e06-9c71a5ac7a4c_tom-ford-f-w-2025-by-haider-ackermann-1000x1500-v0-1zkd98mesydf1.webp",
+      "PackagePath": "staticwebassets\\images\\products\\4379e1dc-5020-48ed-9e06-9c71a5ac7a4c_tom-ford-f-w-2025-by-haider-ackermann-1000x1500-v0-1zkd98mesydf1.webp"
     },
     {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\45f782ac-eacf-4567-98fc-edc1e21e03e6_8cbb01401398a8cf995ab4a197b2de3a.jpg",
       "PackagePath": "staticwebassets\\images\\products\\45f782ac-eacf-4567-98fc-edc1e21e03e6_8cbb01401398a8cf995ab4a197b2de3a.jpg"
     },
     {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\475c6ad4-045f-4e7a-8055-93bbf5b6182b_Tom Ford.webp",
+      "PackagePath": "staticwebassets\\images\\products\\475c6ad4-045f-4e7a-8055-93bbf5b6182b_Tom Ford.webp"
+    },
+    {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\5ea530c3-f95f-4278-bbf0-f0e3fd184139_Bottle-and-rope_2-1000x750-8d60aa2b-b5b4-4456-bb36-65d0c940c283.webp",
       "PackagePath": "staticwebassets\\images\\products\\5ea530c3-f95f-4278-bbf0-f0e3fd184139_Bottle-and-rope_2-1000x750-8d60aa2b-b5b4-4456-bb36-65d0c940c283.webp"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\60d1740c-ff98-4592-a4fa-520ad177ded8_tom-ford-11126-ead6ac.webp",
+      "PackagePath": "staticwebassets\\images\\products\\60d1740c-ff98-4592-a4fa-520ad177ded8_tom-ford-11126-ead6ac.webp"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\616e16f2-06f9-4f7d-933f-5a38ad718ab5_tom-ford-11126-ead6ac.webp",
+      "PackagePath": "staticwebassets\\images\\products\\616e16f2-06f9-4f7d-933f-5a38ad718ab5_tom-ford-11126-ead6ac.webp"
     },
     {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\681e742c-7132-4fc6-81fa-ea35ec57b833_XerjoffErbaPura.webp",
@@ -57,16 +93,36 @@
       "PackagePath": "staticwebassets\\images\\products\\70824eac-73e4-4831-931c-89b9024abd0f_tom-ford-f-w-2025-by-haider-ackermann-1000x1500-v0-1zkd98mesydf1.webp"
     },
     {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\7e6d9953-bfc7-48cf-9024-43bd4872b5b6_unisex2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\7e6d9953-bfc7-48cf-9024-43bd4872b5b6_unisex2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\7eb52674-1890-4884-a7f0-c2c79acc3dba_1359751-800w.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\7eb52674-1890-4884-a7f0-c2c79acc3dba_1359751-800w.jpg"
+    },
+    {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\7f6e47e7-68c9-45f9-b7c6-bd20b279a864_naxos.jpg",
       "PackagePath": "staticwebassets\\images\\products\\7f6e47e7-68c9-45f9-b7c6-bd20b279a864_naxos.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\81a11698-bfda-43ec-9d4c-d8613fd222d4_Bottle-and-rope_2-1000x750-8d60aa2b-b5b4-4456-bb36-65d0c940c283.webp",
+      "PackagePath": "staticwebassets\\images\\products\\81a11698-bfda-43ec-9d4c-d8613fd222d4_Bottle-and-rope_2-1000x750-8d60aa2b-b5b4-4456-bb36-65d0c940c283.webp"
     },
     {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\899a688b-0d2f-44ec-be43-c0a6a0c4f935_image_PSf.webp",
       "PackagePath": "staticwebassets\\images\\products\\899a688b-0d2f-44ec-be43-c0a6a0c4f935_image_PSf.webp"
     },
     {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\8b7d4053-a355-4e28-b098-490b6a42890f_Tom Ford.webp",
+      "PackagePath": "staticwebassets\\images\\products\\8b7d4053-a355-4e28-b098-490b6a42890f_Tom Ford.webp"
+    },
+    {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\9e2f9fb3-9180-42ff-9dce-e2987e52fc88_imagination.png",
       "PackagePath": "staticwebassets\\images\\products\\9e2f9fb3-9180-42ff-9dce-e2987e52fc88_imagination.png"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\a1b18803-de44-499e-abfc-a78626e0dc92_unisex2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\a1b18803-de44-499e-abfc-a78626e0dc92_unisex2.jpg"
     },
     {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\a7a1f39b-5914-4185-8e90-c500b5167d1f_PHOTO-2024-07-23-14-19-16.jpg",
@@ -75,6 +131,10 @@
     {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\aa699000-9160-4cc4-aba5-461548f32cc4_XerjoffErbaPura.webp",
       "PackagePath": "staticwebassets\\images\\products\\aa699000-9160-4cc4-aba5-461548f32cc4_XerjoffErbaPura.webp"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\b3bd312e-cb65-4b00-98c2-d4a4e9712b4d_tom-ford-11126-ead6ac.webp",
+      "PackagePath": "staticwebassets\\images\\products\\b3bd312e-cb65-4b00-98c2-d4a4e9712b4d_tom-ford-11126-ead6ac.webp"
     },
     {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\bed2ddf3-2dcf-4e9f-87fa-4f2f761fd185_6c5b83172650551.6482b548c7660.png",
@@ -107,6 +167,14 @@
     {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\default.svg",
       "PackagePath": "staticwebassets\\images\\products\\default.svg"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\eb17f9dd-da4d-43d8-a501-4cfb34b3bc1a_tom-ford-f-w-2025-by-haider-ackermann-1000x1500-v0-1zkd98mesydf1.webp",
+      "PackagePath": "staticwebassets\\images\\products\\eb17f9dd-da4d-43d8-a501-4cfb34b3bc1a_tom-ford-f-w-2025-by-haider-ackermann-1000x1500-v0-1zkd98mesydf1.webp"
+    },
+    {
+      "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\f4caef22-5cf6-43d6-88c0-dc6fa4a57e8b_Tom Ford.webp",
+      "PackagePath": "staticwebassets\\images\\products\\f4caef22-5cf6-43d6-88c0-dc6fa4a57e8b_Tom Ford.webp"
     },
     {
       "Id": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Web\\wwwroot\\images\\products\\f88126af-a75d-46a6-8cfb-110a836f3a7b_IMG_0674.jpeg",

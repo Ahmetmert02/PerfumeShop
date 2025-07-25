@@ -6,6 +6,7 @@ C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\Pe
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\PerfumeShop.Core.AssemblyInfoInputs.cache
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\PerfumeShop.Core.AssemblyInfo.cs
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\PerfumeShop.Core.csproj.CoreCompileInputs.cache
+C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\PerfumeShop.Core.sourcelink.json
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\PerfumeShop.Core.dll
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\refint\PerfumeShop.Core.dll
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Core\obj\Debug\net8.0\PerfumeShop.Core.pdb

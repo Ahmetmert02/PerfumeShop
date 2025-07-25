@@ -419,29 +419,57 @@ namespace PerfumeShop.Web.Controllers
         // New method to generate a JWT token with the correct secret
         private string GenerateJwtToken()
         {
-            var claims = new List<Claim>
+            try
             {
-                new Claim(ClaimTypes.NameIdentifier, "1"),
-                new Claim(ClaimTypes.Email, "admin@perfumeshop.com"),
-                new Claim(ClaimTypes.GivenName, "Admin"),
-                new Claim(ClaimTypes.Role, "Admin")
-            };
+                // Log info for debugging
+                Console.WriteLine("Generiere JWT Token für Admin-Benutzer");
+                
+                var secretKey = _configuration["JWT:Secret"] ?? "JWTAuthenticationSecretKey123456789!@#$%^&*()";
+                Console.WriteLine($"JWT Secret (gekürzt): {secretKey.Substring(0, 5)}...");
 
-            var secret = _configuration["JWT:Secret"];
-            Console.WriteLine($"Using JWT Secret: {secret}");
-            
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                var key = Encoding.ASCII.GetBytes(secretKey);
+                var tokenHandler = new JwtSecurityTokenHandler();
+                
+                // Token für mindestens 24 Stunden gültig machen
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new[]
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, "1"),
+                        new Claim(ClaimTypes.Email, "admin@perfumeshop.com"),
+                        new Claim(ClaimTypes.Name, "Admin User"),
+                        new Claim(ClaimTypes.Role, "Admin"),
+                        // Eigene Claims für die Web-App
+                        new Claim("uid", "1"),
+                        new Claim("email", "admin@perfumeshop.com"),
+                        new Claim("role", "Admin"),
+                        new Claim("exp", DateTimeOffset.UtcNow.AddHours(24).ToUnixTimeSeconds().ToString())
+                    }),
+                    Expires = DateTime.UtcNow.AddHours(24),
+                    SigningCredentials = new SigningCredentials(
+                        new SymmetricSecurityKey(key),
+                        SecurityAlgorithms.HmacSha256Signature
+                    ),
+                    Audience = _configuration["JWT:ValidAudience"],
+                    Issuer = _configuration["JWT:ValidIssuer"]
+                };
 
-            var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:ValidIssuer"],
-                audience: _configuration["JWT:ValidAudience"],
-                claims: claims,
-                expires: DateTime.Now.AddDays(7), // Longer validity for testing purposes
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                var tokenString = tokenHandler.WriteToken(token);
+                
+                Console.WriteLine($"Token generiert (gekürzt): {tokenString.Substring(0, 20)}...");
+                
+                // Protokolliere den vollständigen Token für Debugging-Zwecke
+                Console.WriteLine($"Vollständiger Token: {tokenString}");
+                
+                return tokenString;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fehler beim Generieren des JWT-Tokens: {ex.Message}");
+                Console.WriteLine(ex.StackTrace);
+                throw;
+            }
         }
         
         // Hilfsmethode zum Aktualisieren des Warenkorb-Zählers

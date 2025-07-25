@@ -169,4 +169,26 @@ namespace PerfumeShop.API.Models
         [Range(0.01, double.MaxValue, ErrorMessage = "Total price must be greater than 0")]
         public decimal TotalPrice { get; set; }
     }
+
+    public class BrandDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string? LogoUrl { get; set; }
+        public bool IsActive { get; set; }
+    }
+
+    public class CreateBrandDto
+    {
+        [Required]
+        public string Name { get; set; } = string.Empty;
+
+        public string Description { get; set; } = string.Empty;
+        
+        public string? LogoUrl { get; set; }
+        
+        public bool IsActive { get; set; } = true;
+    }
+
 } 

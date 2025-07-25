@@ -85,7 +85,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="CategoryId" class="control-label">Kategorie</label>
-                                <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId" required>
+                                <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Categories" required>
                                     <option value="">-- Kategorie auswählen --</option>
                                 </select>
                                 <span asp-validation-for="CategoryId" class="text-danger"></span>
@@ -94,7 +94,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="BrandId" class="control-label">Marke</label>
-                                <select asp-for="BrandId" class="form-select" asp-items="ViewBag.BrandId" required>
+                                <select asp-for="BrandId" class="form-select" asp-items="ViewBag.Brands" required>
                                     <option value="">-- Marke auswählen --</option>
                                 </select>
                                 <span asp-validation-for="BrandId" class="text-danger"></span>

@@ -9,6 +9,7 @@ C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Repository\obj\Debug\net
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Repository\obj\Debug\net8.0\PerfumeShop.Repository.AssemblyInfoInputs.cache
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Repository\obj\Debug\net8.0\PerfumeShop.Repository.AssemblyInfo.cs
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Repository\obj\Debug\net8.0\PerfumeShop.Repository.csproj.CoreCompileInputs.cache
+C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Repository\obj\Debug\net8.0\PerfumeShop.Repository.sourcelink.json
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Repository\obj\Debug\net8.0\PerfumeS.54E8D24D.Up2Date
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Repository\obj\Debug\net8.0\PerfumeShop.Repository.dll
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Repository\obj\Debug\net8.0\refint\PerfumeShop.Repository.dll

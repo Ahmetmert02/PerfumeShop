@@ -57,26 +57,60 @@ namespace PerfumeShop.Web.Areas.Admin.Controllers
         // POST: Admin/Brands/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Brand brand)
+        public async Task<IActionResult> Create([Bind("Name,Description,LogoUrl,IsActive")] Brand brand)
         {
             try
             {
-                if (ModelState.IsValid)
+                // Debug-Ausgaben für die übermittelten Daten
+                Console.WriteLine("========== BRAND CREATE DEBUGGING ==========");
+                Console.WriteLine($"Empfangene Daten: Name={brand.Name}, Description={brand.Description}, LogoUrl={brand.LogoUrl}, IsActive={brand.IsActive}");
+                
+                // ModelState-Fehler protokollieren
+                if (!ModelState.IsValid)
                 {
-                    // Über die API erstellen
-                    var result = await _apiService.CreateBrandAsync(brand);
-                    if (result)
+                    Console.WriteLine("ModelState ist ungültig:");
+                    foreach (var state in ModelState)
                     {
-                        TempData["SuccessMessage"] = "Marke erfolgreich erstellt.";
-                        return RedirectToAction(nameof(Index));
+                        foreach (var error in state.Value.Errors)
+                        {
+                            Console.WriteLine($"- {state.Key}: {error.ErrorMessage}");
+                        }
                     }
+                    TempData["ErrorMessage"] = "Es gab Validierungsfehler. Bitte überprüfen Sie die eingegebenen Daten.";
+                    return View(brand);
                 }
                 
-                TempData["ErrorMessage"] = "Fehler beim Erstellen der Marke.";
+                // Sicherstellen, dass alle erforderlichen Felder gesetzt sind
+                if (string.IsNullOrEmpty(brand.Name))
+                {
+                    ModelState.AddModelError("Name", "Der Name der Marke ist erforderlich.");
+                    Console.WriteLine("Fehler: Name ist leer");
+                    TempData["ErrorMessage"] = "Der Name der Marke ist erforderlich.";
+                    return View(brand);
+                }
+                
+                Console.WriteLine("ModelState ist gültig, versuche Marke zu erstellen");
+                Console.WriteLine($"Brand-Objekt: {brand.Name}, {brand.Description}, {brand.LogoUrl}, {brand.IsActive}");
+                
+                // Über die API erstellen
+                var result = await _apiService.CreateBrandAsync(brand);
+                Console.WriteLine($"API-Ergebnis beim Erstellen der Marke: {result}");
+                
+                if (result)
+                {
+                    TempData["SuccessMessage"] = "Marke erfolgreich erstellt.";
+                    return RedirectToAction(nameof(Index));
+                }
+                
+                // Wenn die Erstellung fehlgeschlagen ist
+                TempData["ErrorMessage"] = "Die API konnte die Marke nicht erstellen. Bitte überprüfen Sie die Konsole für Details.";
                 return View(brand);
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Exception beim Erstellen der Marke: {ex.Message}");
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
+                
                 TempData["ErrorMessage"] = $"Fehler beim Erstellen der Marke: {ex.Message}";
                 return View(brand);
             }

@@ -58,7 +58,8 @@ namespace PerfumeShop.API.Controllers
         {
             var users = await _unitOfWork.Users.FindAsync(u => u.Email == model.Email);
             var user = users.FirstOrDefault();
-            
+
+            var test = HashPassword(model.Password);
             if (user == null)
                 return Unauthorized(new { Status = "Error", Message = "Invalid email or password!" });
 

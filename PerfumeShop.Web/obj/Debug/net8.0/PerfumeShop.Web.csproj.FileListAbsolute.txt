@@ -554,6 +554,7 @@ C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Web\obj\Debug\net8.0\Per
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Web\obj\Debug\net8.0\PerfumeShop.Web.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Web\obj\Debug\net8.0\PerfumeShop.Web.RazorAssemblyInfo.cache
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Web\obj\Debug\net8.0\PerfumeShop.Web.RazorAssemblyInfo.cs
+C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Web\obj\Debug\net8.0\PerfumeShop.Web.sourcelink.json
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Web\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Web\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\ahmet\OneDrive\Desktop\PerfumeShop\PerfumeShop.Web\obj\Debug\net8.0\staticwebassets\msbuild.PerfumeShop.Web.Microsoft.AspNetCore.StaticWebAssets.props

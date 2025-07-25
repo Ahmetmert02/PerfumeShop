@@ -26,7 +26,7 @@ namespace PerfumeShop.Web.Services
                 // Token aus dem Cookie holen
                 var token = _httpContextAccessor.HttpContext?.Request.Cookies["AuthToken"];
                 
-                Console.WriteLine($"Token aus Cookie: {token}");
+                Console.WriteLine($"Token aus Cookie: {(string.IsNullOrEmpty(token) ? "Nicht gefunden" : "Vorhanden")}");
                 
                 // Falls kein Token im Cookie, versuche ihn aus der Session zu holen
                 if (string.IsNullOrEmpty(token) && _httpContextAccessor.HttpContext != null)
@@ -36,7 +36,7 @@ namespace PerfumeShop.Web.Services
                     {
                         var userSession = JsonConvert.DeserializeObject<UserSessionModel>(sessionString);
                         token = userSession?.Token;
-                        Console.WriteLine($"Token aus Session geholt: {token}");
+                        Console.WriteLine($"Token aus Session geholt: {(string.IsNullOrEmpty(token) ? "Nicht gefunden" : "Vorhanden")}");
                     }
                 }
                 
@@ -52,7 +52,6 @@ namespace PerfumeShop.Web.Services
                     _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", $"Bearer {token}");
                     
                     Console.WriteLine("Authorization-Header hinzugefügt");
-                    Console.WriteLine($"Header-Wert: {_httpClient.DefaultRequestHeaders.GetValues("Authorization").FirstOrDefault()}");
                     
                     // Überprüfe, ob der Token gültig ist
                     var tokenParts = token.Split('.');
@@ -60,7 +59,6 @@ namespace PerfumeShop.Web.Services
                     {
                         Console.WriteLine("Token hat gültiges Format");
                         
-                        // Extrahiere Claims aus dem Token (nur für Debug-Zwecke)
                         try
                         {
                             var payload = tokenParts[1];
@@ -72,7 +70,19 @@ namespace PerfumeShop.Web.Services
                             
                             var base64Decoded = System.Convert.FromBase64String(payload.Replace('-', '+').Replace('_', '/'));
                             var jsonPayload = System.Text.Encoding.UTF8.GetString(base64Decoded);
-                            Console.WriteLine($"Token Payload: {jsonPayload}");
+                            Console.WriteLine($"Token Payload (gekürzt): {jsonPayload.Substring(0, Math.Min(jsonPayload.Length, 50))}...");
+                            
+                            // Extrahiere Ablaufzeit
+                            if (jsonPayload.Contains("\"exp\":"))
+                            {
+                                var expString = jsonPayload.Split("\"exp\":")[1].Split(',')[0];
+                                var expTimestamp = long.Parse(expString);
+                                var expDateTime = DateTimeOffset.FromUnixTimeSeconds(expTimestamp).DateTime;
+                                var now = DateTime.UtcNow;
+                                Console.WriteLine($"Token läuft ab am: {expDateTime} UTC");
+                                Console.WriteLine($"Aktuelle Zeit: {now} UTC");
+                                Console.WriteLine($"Token ist {(expDateTime > now ? "noch gültig" : "bereits abgelaufen")}");
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -87,11 +97,13 @@ namespace PerfumeShop.Web.Services
                 else
                 {
                     Console.WriteLine("Kein Token im Cookie oder in der Session gefunden!");
+                    Console.WriteLine("Versuche trotzdem den API-Aufruf ohne Authentifizierung");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Fehler beim Hinzufügen des Authorization-Headers: {ex.Message}");
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
             }
         }
 
@@ -492,9 +504,51 @@ namespace PerfumeShop.Web.Services
 
         public async Task<bool> DeleteCategoryAsync(int id)
         {
-            AddAuthorizationHeader();
-            var response = await _httpClient.DeleteAsync($"Categories/{id}");
-            return response.IsSuccessStatusCode;
+            try
+            {
+                AddAuthorizationHeader();
+                
+                Console.WriteLine($"Versuche Kategorie mit ID {id} zu löschen...");
+                
+                // Debug-Ausgabe für die Request-Header
+                Console.WriteLine("Request-Headers für Kategorie-Löschung:");
+                foreach (var header in _httpClient.DefaultRequestHeaders)
+                {
+                    Console.WriteLine($"{header.Key}: {string.Join(", ", header.Value)}");
+                }
+                
+                var response = await _httpClient.DeleteAsync($"Categories/{id}");
+                
+                // Debug-Ausgabe für die Antwort
+                Console.WriteLine($"Löschen Status Code: {response.StatusCode}");
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Fehler beim Löschen der Kategorie: {errorContent}");
+                    
+                    // Überprüfe, ob die Kategorie noch verwendet wird
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || 
+                        errorContent.Contains("used") || errorContent.Contains("in use") || errorContent.Contains("referenced"))
+                    {
+                        Console.WriteLine("Die Kategorie scheint noch von Produkten verwendet zu werden.");
+                    }
+                }
+                
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception beim Löschen der Kategorie: {ex.Message}");
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
+                
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner Exception: {ex.InnerException.Message}");
+                }
+                
+                return false;
+            }
         }
         
         // Brands
@@ -518,43 +572,156 @@ namespace PerfumeShop.Web.Services
         {
             try
             {
+                // Überprüfen, ob Brand-Objekt gültig ist
+                if (brand == null || string.IsNullOrEmpty(brand.Name))
+                {
+                    Console.WriteLine("Fehler: Brand ist null oder Name ist leer");
+                    return false;
+                }
+
+                Console.WriteLine($"CreateBrandAsync wird aufgerufen mit Name={brand.Name}, Description={brand.Description?.Length ?? 0} Zeichen, IsActive={brand.IsActive}");
+                
                 AddAuthorizationHeader();
                 
-                // Erstelle ein vereinfachtes Objekt für die API
-                var brandDto = new
+                // Debug-Ausgabe für die Request-Header und API-URL
+                Console.WriteLine($"API BaseAddress: {_httpClient.BaseAddress}");
+                Console.WriteLine("Request-Headers für Marken-Erstellung:");
+                foreach (var header in _httpClient.DefaultRequestHeaders)
                 {
-                    Name = brand.Name ?? string.Empty,
-                    Description = brand.Description,
+                    Console.WriteLine($"{header.Key}: {string.Join(", ", header.Value)}");
+                }
+                
+                // Erstelle ein Objekt, das dem API-seitigen CreateBrandDto entspricht
+                var createBrandDto = new
+                {
+                    Name = brand.Name,
+                    Description = brand.Description ?? string.Empty,
+                    LogoUrl = brand.LogoUrl,
                     IsActive = brand.IsActive
                 };
                 
-                var content = new StringContent(JsonConvert.SerializeObject(brandDto), Encoding.UTF8, "application/json");
-                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+                Console.WriteLine($"Sende createBrandDto: {JsonConvert.SerializeObject(createBrandDto)}");
                 
-                var timeoutTask = Task.Delay(TimeSpan.FromSeconds(10));
+                // Erstelle JSON mit expliziten Einstellungen
+                var jsonSettings = new JsonSerializerSettings 
+                { 
+                    NullValueHandling = NullValueHandling.Include,
+                    DefaultValueHandling = DefaultValueHandling.Include,
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+                
+                var json = JsonConvert.SerializeObject(createBrandDto, Formatting.None, jsonSettings);
+                Console.WriteLine($"JSON für API-Anfrage: {json}");
+                
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                
+                // Content-Type-Header explizit setzen
+                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+                Console.WriteLine($"Content-Type: {content.Headers.ContentType}");
+                
+                var timeoutTask = Task.Delay(TimeSpan.FromSeconds(15));
+                
+                // Direkte Prüfung der API-Erreichbarkeit vor dem eigentlichen Request
+                try
+                {
+                    var checkTask = _httpClient.GetAsync("");
+                    var checkTimeoutTask = Task.Delay(TimeSpan.FromSeconds(5));
+                    var checkCompleted = await Task.WhenAny(checkTask, checkTimeoutTask);
+                    
+                    if (checkCompleted == checkTimeoutTask)
+                    {
+                        Console.WriteLine("API-Verbindungstest: Timeout bei der Verbindung zur API");
+                    }
+                    else
+                    {
+                        var checkResponse = await checkTask;
+                        Console.WriteLine($"API-Verbindungstest: Status {checkResponse.StatusCode}");
+                    }
+                }
+                catch (Exception checkEx)
+                {
+                    Console.WriteLine($"API-Verbindungstest fehlgeschlagen: {checkEx.Message}");
+                }
+                
                 var requestTask = _httpClient.PostAsync("Brands", content);
                 
                 var completedTask = await Task.WhenAny(requestTask, timeoutTask);
                 
                 if (completedTask == timeoutTask)
                 {
-                    Console.WriteLine("API-Anfrage Timeout nach 10 Sekunden");
+                    Console.WriteLine("API-Anfrage Timeout nach 15 Sekunden");
                     return false;
                 }
                 
                 var response = await requestTask;
                 
+                // Debug-Ausgabe für die Antwort
+                Console.WriteLine($"Status Code: {response.StatusCode}");
+                Console.WriteLine($"Response Headers: {string.Join(", ", response.Headers.Select(h => $"{h.Key}: {string.Join(", ", h.Value)}"))}");
+                
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Response Content: {responseContent}");
+                
                 if (!response.IsSuccessStatusCode)
                 {
-                    var errorContent = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine($"Error Content: {errorContent}");
+                    Console.WriteLine($"Error Content: {responseContent}");
+                    
+                    // Überprüfe, ob die API erreichbar ist
+                    try
+                    {
+                        Console.WriteLine("Überprüfe API-Erreichbarkeit...");
+                        var pingTask = _httpClient.GetAsync("");
+                        var pingTimeoutTask = Task.Delay(TimeSpan.FromSeconds(5));
+                        
+                        var pingCompleted = await Task.WhenAny(pingTask, pingTimeoutTask);
+                        if (pingCompleted == pingTimeoutTask)
+                        {
+                            Console.WriteLine("API scheint nicht erreichbar zu sein. Bitte stellen Sie sicher, dass der API-Server läuft.");
+                        }
+                    }
+                    catch (Exception pingEx)
+                    {
+                        Console.WriteLine($"API ist nicht erreichbar: {pingEx.Message}");
+                    }
                 }
                 
                 return response.IsSuccessStatusCode;
             }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"HttpRequestException beim API-Aufruf: {ex.Message}");
+                Console.WriteLine($"Status Code: {ex.StatusCode}");
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
+                
+                // Überprüfe, ob die API erreichbar ist
+                try
+                {
+                    Console.WriteLine("Überprüfe API-Erreichbarkeit nach Fehler...");
+                    var pingTask = _httpClient.GetAsync("");
+                    var pingTimeoutTask = Task.Delay(TimeSpan.FromSeconds(5));
+                    
+                    var pingCompleted = await Task.WhenAny(pingTask, pingTimeoutTask);
+                    if (pingCompleted == pingTimeoutTask)
+                    {
+                        Console.WriteLine("API scheint nicht erreichbar zu sein. Bitte stellen Sie sicher, dass der API-Server läuft.");
+                    }
+                }
+                catch (Exception pingEx)
+                {
+                    Console.WriteLine($"API ist nicht erreichbar: {pingEx.Message}");
+                }
+                
+                return false;
+            }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception beim API-Aufruf: {ex.Message}");
+                Console.WriteLine($"Allgemeine Exception beim API-Aufruf: {ex.Message}");
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner Exception: {ex.InnerException.Message}");
+                    Console.WriteLine($"Inner Exception StackTrace: {ex.InnerException.StackTrace}");
+                }
                 return false;
             }
         }
@@ -593,9 +760,51 @@ namespace PerfumeShop.Web.Services
 
         public async Task<bool> DeleteBrandAsync(int id)
         {
-            AddAuthorizationHeader();
-            var response = await _httpClient.DeleteAsync($"Brands/{id}");
-            return response.IsSuccessStatusCode;
+            try
+            {
+                AddAuthorizationHeader();
+                
+                Console.WriteLine($"Versuche Marke mit ID {id} zu löschen...");
+                
+                // Debug-Ausgabe für die Request-Header
+                Console.WriteLine("Request-Headers für Marken-Löschung:");
+                foreach (var header in _httpClient.DefaultRequestHeaders)
+                {
+                    Console.WriteLine($"{header.Key}: {string.Join(", ", header.Value)}");
+                }
+                
+                var response = await _httpClient.DeleteAsync($"Brands/{id}");
+                
+                // Debug-Ausgabe für die Antwort
+                Console.WriteLine($"Löschen Status Code: {response.StatusCode}");
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Fehler beim Löschen der Marke: {errorContent}");
+                    
+                    // Überprüfe, ob die Marke noch verwendet wird
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest || 
+                        errorContent.Contains("used") || errorContent.Contains("in use") || errorContent.Contains("referenced"))
+                    {
+                        Console.WriteLine("Die Marke scheint noch von Produkten verwendet zu werden.");
+                    }
+                }
+                
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception beim Löschen der Marke: {ex.Message}");
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
+                
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner Exception: {ex.InnerException.Message}");
+                }
+                
+                return false;
+            }
         }
         
         // Orders
