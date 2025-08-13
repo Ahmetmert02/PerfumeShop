@@ -4347,11 +4347,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.API\\PerfumeShop.API.csproj",
+      "projectUniqueName": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop Git Bash\\PerfumeShop\\PerfumeShop.API\\PerfumeShop.API.csproj",
       "projectName": "PerfumeShop.API",
-      "projectPath": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.API\\PerfumeShop.API.csproj",
+      "projectPath": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop Git Bash\\PerfumeShop\\PerfumeShop.API\\PerfumeShop.API.csproj",
       "packagesPath": "C:\\Users\\ahmet\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.API\\obj\\",
+      "outputPath": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop Git Bash\\PerfumeShop\\PerfumeShop.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ahmet\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4368,11 +4368,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Core\\PerfumeShop.Core.csproj": {
-              "projectPath": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Core\\PerfumeShop.Core.csproj"
+            "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop Git Bash\\PerfumeShop\\PerfumeShop.Core\\PerfumeShop.Core.csproj": {
+              "projectPath": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop Git Bash\\PerfumeShop\\PerfumeShop.Core\\PerfumeShop.Core.csproj"
             },
-            "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Repository\\PerfumeShop.Repository.csproj": {
-              "projectPath": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Repository\\PerfumeShop.Repository.csproj"
+            "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop Git Bash\\PerfumeShop\\PerfumeShop.Repository\\PerfumeShop.Repository.csproj": {
+              "projectPath": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop Git Bash\\PerfumeShop\\PerfumeShop.Repository\\PerfumeShop.Repository.csproj"
             }
           }
         }

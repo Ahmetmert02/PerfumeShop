@@ -4,15 +4,42 @@ using PerfumeShop.Core.Entities;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace PerfumeShop.Repository.Data
 {
     public static class SeedData
     {
+        private static string HashPassword(string password)
+        {
+            using var sha256 = SHA256.Create();
+            var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return Convert.ToBase64String(hashedBytes);
+        }
+        
         public static async Task InitializeAsync(IServiceProvider serviceProvider)
         {
             using var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>());
+                
+            // Admin-Benutzer erstellen, falls noch keiner existiert
+            if (!context.Users.Any(u => u.Email == "admin@perfumeshop.com"))
+            {
+                context.Users.Add(new User
+                {
+                    Email = "admin@perfumeshop.com",
+                    Password = HashPassword("Admin123"),
+                    FirstName = "Admin",
+                    LastName = "User",
+                    Address = "Admin Address",
+                    IsAdmin = true,
+                    IsActive = true,
+                    CreatedAt = DateTime.Now
+                });
+                
+                await context.SaveChangesAsync();
+            }
 
             // Überprüfen, ob bereits Marken vorhanden sind
             if (!context.Brands.Any())

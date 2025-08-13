@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Core\\PerfumeShop.Core.csproj": {}
+    "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop Git Bash\\PerfumeShop\\PerfumeShop.Core\\PerfumeShop.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Core\\PerfumeShop.Core.csproj": {
+    "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop Git Bash\\PerfumeShop\\PerfumeShop.Core\\PerfumeShop.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Core\\PerfumeShop.Core.csproj",
+        "projectUniqueName": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop Git Bash\\PerfumeShop\\PerfumeShop.Core\\PerfumeShop.Core.csproj",
         "projectName": "PerfumeShop.Core",
-        "projectPath": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Core\\PerfumeShop.Core.csproj",
+        "projectPath": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop Git Bash\\PerfumeShop\\PerfumeShop.Core\\PerfumeShop.Core.csproj",
         "packagesPath": "C:\\Users\\ahmet\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.Core\\obj\\",
+        "outputPath": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop Git Bash\\PerfumeShop\\PerfumeShop.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ahmet\\AppData\\Roaming\\NuGet\\NuGet.Config",

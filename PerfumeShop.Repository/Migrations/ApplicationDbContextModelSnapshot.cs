@@ -41,7 +41,6 @@ namespace PerfumeShop.Repository.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LogoUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -325,20 +324,6 @@ namespace PerfumeShop.Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "Admin Address",
-                            CreatedAt = new DateTime(2025, 7, 19, 16, 2, 15, 208, DateTimeKind.Local).AddTicks(8401),
-                            Email = "admin@perfumeshop.com",
-                            FirstName = "Admin",
-                            IsActive = true,
-                            IsAdmin = true,
-                            LastName = "User",
-                            Password = "admin123"
-                        });
                 });
 
             modelBuilder.Entity("PerfumeShop.Core.Entities.CartItem", b =>

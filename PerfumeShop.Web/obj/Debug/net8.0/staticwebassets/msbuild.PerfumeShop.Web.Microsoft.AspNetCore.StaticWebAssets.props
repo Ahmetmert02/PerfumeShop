@@ -160,6 +160,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\products\2b5a1625-714a-4f0b-8e96-d415a5a93ad2_tom-ford-11126-ead6ac.webp))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\products\2ba74a3b-29dc-405b-90f3-52e632eebfd5_Parfums_De_Marly_Layton_Exclusif_Parfum_-_Google_Search_-_41.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>PerfumeShop.Web</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/PerfumeShop.Web</BasePath>
+      <RelativePath>images/products/2ba74a3b-29dc-405b-90f3-52e632eebfd5_Parfums_De_Marly_Layton_Exclusif_Parfum_-_Google_Search_-_41.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\products\2ba74a3b-29dc-405b-90f3-52e632eebfd5_Parfums_De_Marly_Layton_Exclusif_Parfum_-_Google_Search_-_41.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\products\31a1911f-2353-4067-9030-482b082037b6_Xerjoff_Alexandria_II.webp))">
       <SourceType>Package</SourceType>
       <SourceId>PerfumeShop.Web</SourceId>

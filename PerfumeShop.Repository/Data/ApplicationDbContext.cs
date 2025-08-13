@@ -88,20 +88,7 @@ namespace PerfumeShop.Repository.Data
                 .WithOne(u => u.ShoppingCart)
                 .HasForeignKey<ShoppingCart>(sc => sc.UserId);
 
-            // Seed admin user
-            builder.Entity<User>().HasData(
-                new User
-                {
-                    Id = 1,
-                    Email = "admin@perfumeshop.com",
-                    Password = "admin123", // In real project, this should be hashed
-                    FirstName = "Admin",
-                    LastName = "User",
-                    Address = "Admin Address",
-                    IsAdmin = true,
-                    CreatedAt = DateTime.Now
-                }
-            );
+            // Admin user will be seeded in SeedData.cs instead
         }
     }
 } 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FUPd/b7hAumB2YkgSk6N+pYJ5wW9RJ9AMi1Pn05VnhcKYIxc8+485z0e3/Xkeyd1jj5PR5e0Fp9n8fMyA61O1Q==",
+  "dgSpecHash": "5ryLh77JW54PxWmPjg3a2CzekGWMEY0tFwD/vJ3OiUoVX6CGzXS8M+tekfJPzZaB6UFg+FeWyK6dSEHnOdZMGQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop\\PerfumeShop.API\\PerfumeShop.API.csproj",
+  "projectFilePath": "C:\\Users\\ahmet\\OneDrive\\Desktop\\PerfumeShop Git Bash\\PerfumeShop\\PerfumeShop.API\\PerfumeShop.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ahmet\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\ahmet\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
