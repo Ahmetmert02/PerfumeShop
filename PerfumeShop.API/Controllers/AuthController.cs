@@ -56,15 +56,24 @@ namespace PerfumeShop.API.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
+            Console.WriteLine($"Login attempt: {model.Email}");
+            
             var users = await _unitOfWork.Users.FindAsync(u => u.Email == model.Email);
             var user = users.FirstOrDefault();
 
-
             if (user == null)
+            {
+                Console.WriteLine($"User not found: {model.Email}");
                 return Unauthorized(new { Status = "Error", Message = "Invalid email or password!" });
+            }
 
+            Console.WriteLine($"User found: {user.Email}, IsAdmin: {user.IsAdmin}");
+            
             // Verify the password
-            if (!VerifyPassword(model.Password, user.Password))
+            bool passwordValid = VerifyPassword(model.Password, user.Password);
+            Console.WriteLine($"Password valid: {passwordValid}");
+            
+            if (!passwordValid)
                 return Unauthorized(new { Status = "Error", Message = "Invalid email or password!" });
 
             var authClaims = new List<Claim>
@@ -119,13 +128,18 @@ namespace PerfumeShop.API.Controllers
             using (var sha256 = SHA256.Create())
             {
                 var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return Convert.ToBase64String(hashedBytes);
+                var hash = Convert.ToBase64String(hashedBytes);
+                Console.WriteLine($"AuthController - Password: {password}, Hash: {hash}");
+                // Der Hash für Admin123 muss O2Esdae1BIpDX7bsgeUv+S1teVqLWpwXBw9qY8l6U7I= sein
+                return hash;
             }
         }
 
         private bool VerifyPassword(string password, string hashedPassword)
         {
             var newHash = HashPassword(password);
+            Console.WriteLine($"Input hash: {newHash}");
+            Console.WriteLine($"Stored hash: {hashedPassword}");
             return newHash.Equals(hashedPassword);
         }
     }

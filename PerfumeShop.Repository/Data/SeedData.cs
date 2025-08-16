@@ -15,7 +15,9 @@ namespace PerfumeShop.Repository.Data
         {
             using var sha256 = SHA256.Create();
             var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-            return Convert.ToBase64String(hashedBytes);
+            var hash = Convert.ToBase64String(hashedBytes);
+            Console.WriteLine($"SeedData - Password: {password}, Hash: {hash}");
+            return hash;
         }
         
         public static async Task InitializeAsync(IServiceProvider serviceProvider)
@@ -23,13 +25,19 @@ namespace PerfumeShop.Repository.Data
             using var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>());
                 
+            Console.WriteLine("Starting seed data initialization...");
+                
             // Admin-Benutzer erstellen, falls noch keiner existiert
             if (!context.Users.Any(u => u.Email == "admin@perfumeshop.com"))
             {
+                Console.WriteLine("Creating admin user: admin@perfumeshop.com");
+                var adminPassword = HashPassword("Admin123");
+                Console.WriteLine($"Admin password hash: {adminPassword}");
+                
                 context.Users.Add(new User
                 {
                     Email = "admin@perfumeshop.com",
-                    Password = HashPassword("Admin123"),
+                    Password = adminPassword,
                     FirstName = "Admin",
                     LastName = "User",
                     Address = "Admin Address",
@@ -39,6 +47,11 @@ namespace PerfumeShop.Repository.Data
                 });
                 
                 await context.SaveChangesAsync();
+                Console.WriteLine("Admin user created successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Admin user already exists.");
             }
 
             // Überprüfen, ob bereits Marken vorhanden sind
