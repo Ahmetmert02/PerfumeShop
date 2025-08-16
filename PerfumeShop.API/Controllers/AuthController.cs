@@ -59,7 +59,7 @@ namespace PerfumeShop.API.Controllers
             var users = await _unitOfWork.Users.FindAsync(u => u.Email == model.Email);
             var user = users.FirstOrDefault();
 
-            var test = HashPassword(model.Password);
+
             if (user == null)
                 return Unauthorized(new { Status = "Error", Message = "Invalid email or password!" });
 
@@ -119,7 +119,7 @@ namespace PerfumeShop.API.Controllers
             using (var sha256 = SHA256.Create())
             {
                 var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+                return Convert.ToBase64String(hashedBytes);
             }
         }
 
